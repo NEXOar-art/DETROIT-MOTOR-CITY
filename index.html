@@ -207,81 +207,43 @@
       transition: opacity 0.3s ease;
     }
 
-    /* === ASISTENTE IA FULLSCREEN (TRANSFORMACIÓN SIN TRANSICIÓN) === */
-    #notebookAssistantView {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: #050511;
+    /* === ESTILOS PARA EL ASISTENTE NOTEBOOKLM === */
+    #notebooklmModal {
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #notebooklmModal.hidden {
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-      display: flex;
-      flex-direction: column;
     }
-    #notebookAssistantView.active {
-      opacity: 1;
-      visibility: visible;
+    #notebooklmContainer {
+      animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    #notebookAssistantView iframe {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #050511;
+    @keyframes modalSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
-    /* Barra superior del asistente (mínima, coherente con NEXO-ART) */
-    .assistant-topbar {
-      background: rgba(5,5,17,0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,240,255,0.3);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      z-index: 10;
+    #notebooklmIframe {
+      transition: opacity 0.3s ease;
     }
-    .assistant-topbar .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 900;
-      color: #00F0FF;
-      letter-spacing: 1px;
-      font-size: 0.9rem;
+    #notebooklmIframe.loading {
+      opacity: 0.5;
     }
-    .assistant-topbar .brand .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #39FF14;
-      box-shadow: 0 0 10px #39FF14;
-      animation: pulse 2s infinite;
+    .assistant-btn {
+      animation: float 3s ease-in-out infinite, pulseAssistant 2s infinite;
     }
-    .btn-volver {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: linear-gradient(90deg, #00F0FF, #06b6d4);
-      color: #000;
-      font-weight: 900;
-      font-size: 0.85rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 0 20px rgba(0,240,255,0.4);
-    }
-    .btn-volver:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(0,240,255,0.7);
-    }
-    /* Cuando el asistente está activo, ocultamos el resto de la página */
-    body.assistant-active > *:not(#notebookAssistantView):not(#particles-js) {
-      visibility: hidden;
+    @keyframes pulseAssistant {
+      0%, 100% {
+        box-shadow: 0 0 30px rgba(57, 255, 20, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 50px rgba(57, 255, 20, 0.9);
+      }
     }
   </style>
 </head>
@@ -322,6 +284,84 @@
     </div>
   </header>
 
+  <!-- 🤖 MODAL ASISTENTE NOTEBOOKLM -->
+  <div id="notebooklmModal" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-[9999] hidden flex items-center justify-center p-2 sm:p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="assistantTitle">
+    <div id="notebooklmContainer" class="glass border-2 border-accent/50 rounded-2xl sm:rounded-3xl w-full h-full max-w-[1800px] max-h-[95vh] flex flex-col overflow-hidden shadow-2xl shadow-accent/30">
+      <!-- Header del Modal -->
+      <div class="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 bg-gradient-to-r from-accent/10 to-transparent">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-accent to-green-400 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-black" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1 15h-2v-2h2zm0-4h-2V7h2zm4 4h-2v-6h2zm0-8h-2V7h2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 id="assistantTitle" class="text-lg sm:text-xl font-black gradient-text">Asistente NEXO-ART</h3>
+            <p class="text-xs sm:text-sm text-gray-400">Preguntá lo que quieras • Respuesta instantánea</p>
+          </div>
+        </div>
+        <button onclick="cerrarAsistente()" class="w-10 h-10 sm:w-12 sm:h-12 glass border border-white/20 rounded-xl hover:bg-red-500/20 hover:border-red-500/50 transition flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-red-400" aria-label="Cerrar asistente">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-red-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Loading Indicator -->
+      <div id="loadingIndicator" class="flex items-center justify-center py-2 bg-accent/5 border-b border-white/5">
+        <div class="flex items-center gap-2 text-xs sm:text-sm text-accent">
+          <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+          <span>Conectando con el asistente...</span>
+        </div>
+      </div>
+
+      <!-- Contenedor del Iframe -->
+      <div class="flex-1 relative bg-white">
+        <iframe 
+          id="notebooklmIframe"
+          src="about:blank"
+          class="absolute inset-0 w-full h-full loading"
+          title="Asistente NotebookLM"
+          loading="eager"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="clipboard-read; clipboard-write">
+        </iframe>
+        
+        <!-- Mensaje de carga -->
+        <div id="loadingMessage" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-black/90 to-accent/10 pointer-events-none">
+          <div class="text-center max-w-md px-4">
+            <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-accent to-green-400 rounded-full flex items-center justify-center animate-pulse">
+              <svg class="w-10 h-10 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h4 class="text-xl sm:text-2xl font-black gradient-text mb-3">Cargando Asistente...</h4>
+            <p class="text-sm sm:text-base text-gray-300 mb-4">Preparando tu experiencia personalizada</p>
+            <div class="flex items-center justify-center gap-1">
+              <div class="w-2 h-2 bg-accent rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+              <div class="w-2 h-2 bg-accent rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+              <div class="w-2 h-2 bg-accent rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer del Modal -->
+      <div class="px-4 sm:px-6 py-3 border-t border-white/10 bg-black/30">
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <div class="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+            <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+            <span>Asistente activo • Respondiendo consultas</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs sm:text-sm">
+            <span class="text-gray-500">💡 Tip:</span>
+            <span class="text-gray-400">Preguntá sobre planes, precios, características</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 📱 MODAL DE WHATSAPP -->
   <div id="whatsappModal" class="fixed inset-0 bg-black/90 backdrop-blur-xl z-50 hidden flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="glass p-6 sm:p-8 md:p-10 rounded-3xl border border-primary/50 max-w-md w-full animate-slideDown">
@@ -352,27 +392,6 @@
 
   <!-- 🎨 FONDO DE PARTÍCULAS -->
   <div id="particles-js"></div>
-
-  <!-- 🤖 VISTA FULLSCREEN DEL ASISTENTE NOTEBOOKLM (TRANSFORMACIÓN INMEDIATA) -->
-  <div id="notebookAssistantView" role="dialog" aria-modal="true" aria-label="Asistente NEXO-Art">
-    <div class="assistant-topbar">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>NEXO-ART • ASISTENTE IA</span>
-      </div>
-      <button class="btn-volver" onclick="cerrarNotebookAssistant()" aria-label="Volver a NEXO-ART">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        Volver a NEXO-ART
-      </button>
-    </div>
-    <iframe 
-      id="notebookIframe"
-      src=""
-      title="Asistente NotebookLM NEXO-Art"
-      allow="clipboard-write; microphone; camera"
-      loading="lazy">
-    </iframe>
-  </div>
 
   <!-- 🌟 SECCIÓN HERO -->
   <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-20">
@@ -758,35 +777,27 @@
     </div>
   </section>
 
-  <!-- 📞 BOTONES FLOTANTES DE CONTACTO -->
-  
-  <!-- 🤖 BOTÓN FLOTANTE ASISTENTE NOTEBOOKLM - Lado izquierdo -->
-  <button onclick="abrirNotebookAssistant()" 
-     class="fixed bottom-24 left-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-primary to-cyan-400 hover:from-cyan-400 hover:to-primary rounded-full shadow-2xl shadow-primary/40 transition-all duration-300 hover:scale-110 group animate-float"
-     aria-label="Abrir Asistente NEXO-Art" title="Abrir Asistente NEXO-Art">
-    <svg class="w-7 h-7 sm:w-8 sm:h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-    </svg>
-    <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none border border-white/20">
-      💬 Asistente NEXO-Art
+  <!-- 🤖 BOTÓN FLOTANTE ASISTENTE -->
+  <button onclick="abrirAsistente()" 
+          class="assistant-btn fixed bottom-24 left-6 z-50 flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent to-green-400 hover:from-green-400 hover:to-accent rounded-full shadow-2xl transition-all duration-300 hover:scale-110 group"
+          aria-label="Abrir asistente inteligente" 
+          title="Abrir asistente inteligente">
+    <div class="relative w-full h-full flex items-center justify-center">
+      <svg class="w-9 h-9 sm:w-11 sm:h-11 text-black" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+        <circle cx="8" cy="9" r="1.5"/>
+        <circle cx="12" cy="9" r="1.5"/>
+        <circle cx="16" cy="9" r="1.5"/>
+      </svg>
+      <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded-full border-2 border-black/30 animate-pulse shadow-lg">AI</span>
+    </div>
+    <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-accent/95 text-black text-xs font-black px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-xl">
+      💬 Asistente IA
     </span>
   </button>
 
-  <!-- WhatsApp EMERGENCIA 3834689137 - Lado izquierdo -->
-  <a href="https://api.whatsapp.com/send?phone=543834689137&text=🚨%20EMERGENCIA%20NEXO-Art:%20Necesito%20asistencia%20inmediata.%20Mi%20nombre%20es:" target="_blank" rel="noopener noreferrer"
-     class="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#128C7E] rounded-xl sm:rounded-2xl shadow-2xl shadow-[#25D366]/40 transition-all duration-300 hover:scale-110 group border-2 border-white/30"
-     aria-label="WhatsApp EMERGENCIA: 3834689137" title="WhatsApp EMERGENCIA: 3834689137">
-    <div class="relative w-full h-full flex items-center justify-center">
-      <svg class="w-8 h-8 sm:w-9 sm:h-9 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-      </svg>
-      <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-sm border border-white/50 animate-pulse">!</span>
-    </div>
-    <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-600/95 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none border border-white/30 shadow-lg">
-      🚨 EMERGENCIA: 3834689137
-    </span>
-  </a>
-
+  <!-- 📞 BOTONES FLOTANTES DE CONTACTO -->
+  
   <!-- LinkedIn - Lado derecho -->
   <a href="https://www.linkedin.com/in/nexo-art-591a64389/" target="_blank" rel="noopener noreferrer"
      class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#0077B5] hover:bg-[#005885] rounded-full shadow-2xl shadow-[#0077B5]/40 transition-all duration-300 hover:scale-110 group"
@@ -823,8 +834,70 @@
     </span>
   </a>
 
+  <!-- WhatsApp EMERGENCIA 3834689137 - Lado izquierdo -->
+  <a href="https://api.whatsapp.com/send?phone=543834689137&text=🚨%20EMERGENCIA%20NEXO-Art:%20Necesito%20asistencia%20inmediata.%20Mi%20nombre%20es:" target="_blank" rel="noopener noreferrer"
+     class="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#128C7E] rounded-xl sm:rounded-2xl shadow-2xl shadow-[#25D366]/40 transition-all duration-300 hover:scale-110 group border-2 border-white/30"
+     aria-label="WhatsApp EMERGENCIA: 3834689137" title="WhatsApp EMERGENCIA: 3834689137">
+    <div class="relative w-full h-full flex items-center justify-center">
+      <svg class="w-8 h-8 sm:w-9 sm:h-9 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-sm border border-white/50 animate-pulse">!</span>
+    </div>
+    <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-red-600/95 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none border border-white/30 shadow-lg">
+      🚨 EMERGENCIA: 3834689137
+    </span>
+  </a>
+
   <!-- ⚙️ SCRIPT COMPLETO CON TODA LA LÓGICA -->
   <script>
+    // ============================================
+    // 🤖 ASISTENTE NOTEBOOKLM - FUNCIONES
+    // ============================================
+    const NOTEBOOKLM_URL = 'https://notebooklm.google.com/notebook/8b4f5d92-7e6f-471c-bfdf-5c0de7da2a38/preview';
+    let asistenteAbierto = false;
+    let iframeCargado = false;
+
+    function abrirAsistente() {
+      const modal = document.getElementById('notebooklmModal');
+      const iframe = document.getElementById('notebooklmIframe');
+      const loading = document.getElementById('loadingMessage');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      asistenteAbierto = true;
+      
+      // Cargar el iframe solo la primera vez
+      if (!iframeCargado) {
+        iframe.src = NOTEBOOKLM_URL;
+        loadingIndicator.style.display = 'flex';
+        
+        // Detectar cuando el iframe esté cargado
+        iframe.onload = function() {
+          iframe.classList.remove('loading');
+          if (loading) loading.style.display = 'none';
+          if (loadingIndicator) loadingIndicator.style.display = 'none';
+          iframeCargado = true;
+          mostrarNotificacion('✅ Asistente listo para responder tus preguntas');
+        };
+        
+        // Timeout de seguridad
+        setTimeout(() => {
+          if (loading) loading.style.display = 'none';
+          if (loadingIndicator) loadingIndicator.style.display = 'none';
+          iframe.classList.remove('loading');
+        }, 8000);
+      }
+    }
+
+    function cerrarAsistente() {
+      const modal = document.getElementById('notebooklmModal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+      asistenteAbierto = false;
+    }
+
     // ============================================
     // 🌍 CONFIGURACIÓN DE PRECIOS POR PAÍS (ACTUALIZADO)
     // ============================================
@@ -1182,7 +1255,7 @@
     // ============================================
     function mostrarNotificacion(mensaje) {
       const notif = document.createElement('div');
-      notif.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-6 py-4 glass border border-accent/50 rounded-2xl text-accent font-medium shadow-2xl animate-slideDown';
+      notif.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-[10000] px-6 py-4 glass border border-accent/50 rounded-2xl text-accent font-medium shadow-2xl animate-slideDown';
       notif.style.maxWidth = '90%';
       notif.style.textAlign = 'center';
       notif.innerHTML = mensaje;
@@ -1195,40 +1268,6 @@
         notif.style.transition = 'all 0.3s ease';
         setTimeout(() => notif.remove(), 300);
       }, 4000);
-    }
-
-    // ============================================
-    // 🤖 ASISTENTE NOTEBOOKLM - VISTA FULLSCREEN (TRANSFORMACIÓN SIN TRANSICIÓN)
-    // ============================================
-    const NOTEBOOK_URL = "https://notebooklm.google.com/notebook/8b4f5d92-7e6f-471c-bfdf-5c0de7da2a38/preview";
-
-    function abrirNotebookAssistant() {
-      const view = document.getElementById('notebookAssistantView');
-      const iframe = document.getElementById('notebookIframe');
-      
-      // Si el iframe aún no tiene src, lo cargamos (primera vez)
-      if (!iframe.src || iframe.src === window.location.href || iframe.src === '') {
-        iframe.src = NOTEBOOK_URL;
-      }
-      
-      // Activamos la vista fullscreen con transición suave
-      view.classList.add('active');
-      document.body.classList.add('assistant-active');
-      document.body.style.overflow = 'hidden';
-      
-      // Scroll al top para que al volver quede en la misma posición inicial
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-
-    function cerrarNotebookAssistant() {
-      const view = document.getElementById('notebookAssistantView');
-      view.classList.remove('active');
-      document.body.classList.remove('assistant-active');
-      document.body.style.overflow = '';
-      
-      // Opcional: limpiar el src del iframe tras cerrar para liberar recursos
-      // (descomentar si se quiere que recargue cada vez que se abre)
-      // setTimeout(() => { document.getElementById('notebookIframe').src = ''; }, 600);
     }
 
     // ============================================
@@ -1277,10 +1316,8 @@
     // 🚀 INICIALIZACIÓN AL CARGAR LA PÁGINA
     // ============================================
     document.addEventListener('DOMContentLoaded', function() {
-      // 1. Inicializar partículas
       inicializarParticulas();
       
-      // 2. Recuperar país guardado
       try {
         const paisGuardado = localStorage.getItem('nexoar-pais');
         if (paisGuardado && preciosPorPais[paisGuardado]) {
@@ -1293,25 +1330,28 @@
         console.log('localStorage no disponible');
       }
       
-      // 3. Cerrar modales con tecla ESC
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-          cerrarModal();
-          // Si el asistente está abierto, también lo cerramos con ESC
-          if (document.getElementById('notebookAssistantView').classList.contains('active')) {
-            cerrarNotebookAssistant();
+          if (asistenteAbierto) {
+            cerrarAsistente();
+          } else {
+            cerrarModal();
           }
         }
       });
       
-      // 4. Cerrar modal de WhatsApp al hacer clic fuera
       document.getElementById('whatsappModal').addEventListener('click', function(e) {
         if (e.target === this) {
           cerrarModal();
         }
       });
+
+      document.getElementById('notebooklmModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          cerrarAsistente();
+        }
+      });
       
-      // 5. Smooth scroll para enlaces internos
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
@@ -1322,7 +1362,6 @@
         });
       });
       
-      // 6. Lazy load para iframes
       if ('loading' in HTMLIFrameElement.prototype) {
         document.querySelectorAll('iframe[loading="lazy"]').forEach(iframe => {
           iframe.src = iframe.src;

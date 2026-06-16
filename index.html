@@ -1,834 +1,531 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXO-ART PREMIUM · Tu Nexo al Futuro Digital</title>
-<meta name="description" content="Creamos sitios web de alto nivel con IA, SEO avanzado y asistente NLM 24/7. El futuro digital de tu marca empieza aquí.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&family=DM+Mono:wght@300&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --black:#010408;
-  --dark:#080d14;
-  --dark2:#0d1520;
-  --cyan:#00d4ff;
-  --cyan2:#00a8cc;
-  --cyan-dim:rgba(0,212,255,0.15);
-  --gold:#c9a96e;
-  --gold2:#e8d5a8;
-  --white:#eef4ff;
-  --muted:rgba(238,244,255,0.5);
-  --faint:rgba(238,244,255,0.25);
-  --orb:'Orbitron',sans-serif;
-  --raj:'Rajdhani',sans-serif;
-  --mono:'DM Mono',monospace;
-  --ease:cubic-bezier(0.16,1,0.3,1);
-  --ease2:cubic-bezier(0.4,0,0.2,1);
-}
-html{font-size:16px;scroll-behavior:smooth}
-body{background:var(--black);color:var(--white);font-family:var(--raj);font-weight:300;line-height:1.7;overflow-x:hidden;cursor:none}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diagnóstico automotriz de precisión - Tecnología y análisis de datos que tu auto merece">
+    <title>Diagnóstico Automotriz Preciso | Tecnología Avanzada</title>
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* ===== CURSOR ===== */
-.cursor{width:10px;height:10px;background:var(--cyan);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,background .3s;box-shadow:0 0 12px var(--cyan)}
-.cursor-ring{width:36px;height:36px;border:1px solid rgba(0,212,255,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
-.cursor-ring.hover{width:60px;height:60px;border-color:rgba(0,212,255,.7)}
-.cursor.hover{transform:translate(-50%,-50%) scale(1.5);background:var(--gold)}
+        :root {
+            /* Colores Persuasivos & Cinematográficos */
+            --bg-dark: #050507; /* Negro absoluto de base */
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent-orange: #ff5e00; /* Naranja persuasivo (acción, urgencia, motor) */
+            --accent-glow: rgba(255, 94, 0, 0.4);
+            --glass-bg: rgba(10, 10, 15, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-/* ===== NAV ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.25rem 4rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
-nav.solid{background:rgba(8,13,20,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,212,255,.08)}
-.nav-logo{font-family:var(--orb);font-size:.85rem;font-weight:700;letter-spacing:.2em;text-decoration:none;color:var(--white);text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
-.nav-logo .dot{color:var(--cyan);text-shadow:0 0 10px var(--cyan)}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{font-family:var(--mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s var(--ease)}
-.nav-links a:hover{color:var(--cyan)}
-.nav-links a:hover::after{width:100%}
-.nav-cta{font-family:var(--mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--cyan2);color:var(--cyan);padding:.6rem 1.5rem;text-decoration:none;transition:all .3s;background:transparent;position:relative;overflow:hidden}
-.nav-cta::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);z-index:-1}
-.nav-cta:hover{color:var(--black)}
-.nav-cta:hover::before{transform:scaleX(1)}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
-.hamburger span{width:24px;height:1px;background:var(--white);display:block;transition:all .3s}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* ===== MOBILE MENU ===== */
-.mobile-menu{position:fixed;inset:0;background:rgba(8,13,20,.98);z-index:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;transform:translateX(100%);transition:transform .5s var(--ease)}
-.mobile-menu.open{transform:none}
-.mobile-menu a{font-family:var(--orb);font-size:1.5rem;font-weight:400;color:var(--white);text-decoration:none;letter-spacing:.1em;transition:color .3s}
-.mobile-menu a:hover{color:var(--cyan)}
-.mobile-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;cursor:none;font-size:1.5rem;color:var(--muted);padding:8px;transition:color .3s}
-.mobile-close:hover{color:var(--cyan)}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-/* ===== SCENE SYSTEM ===== */
-/* 6 scenes × 100vh = 600vh wrapper */
-.scenes-wrapper{position:relative;height:600vh}
-.scenes-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--black)}
+        /* ========== FONDO DE AUTO ROTATIVO 180° ========== */
+        .cinematic-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 160vw; /* Extra grande para evitar márgenes vacíos durante la rotación */
+            height: 160vh;
+            transform: translate(-50%, -50%); /* Centro absoluto */
+            z-index: -2;
+            pointer-events: none;
+            will-change: transform;
+        }
 
-/* Each scene */
-.scene{position:absolute;inset:0;opacity:0;transition:opacity .0s;pointer-events:none;overflow:hidden}
-.scene.active{opacity:1;pointer-events:all}
+        .cinematic-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25; /* Opacidad sutil para no competir con el texto */
+            filter: contrast(1.2) saturate(1.1); /* Efecto cinematográfico */
+        }
 
-/* Scene bg image */
-.scene-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 8s ease-out}
-.scene.active .scene-bg{transform:scale(1.04)}
-/* Overlays per scene mood */
-.overlay-hero{position:absolute;inset:0;background:linear-gradient(135deg,rgba(1,4,8,.85) 0%,rgba(1,4,8,.5) 60%,rgba(0,80,120,.15) 100%)}
-.overlay-dark{position:absolute;inset:0;background:linear-gradient(to right,rgba(1,4,8,.92) 0%,rgba(1,4,8,.75) 50%,rgba(0,60,90,.2) 100%)}
-.overlay-split{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(1,4,8,.8) 0%,rgba(1,4,8,.5) 50%,rgba(1,4,8,.9) 100%)}
+        /* Viñeta para oscurecer los bordes estilo película */
+        .vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, transparent 30%, #050507 95%);
+            z-index: -1;
+            pointer-events: none;
+        }
 
-/* Scan lines effect */
-.scanlines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,212,255,.015) 2px,rgba(0,212,255,.015) 4px);pointer-events:none;z-index:5}
+        /* ========== TÉCNICA GLASSMORPHISM ========== */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
 
-/* HUD corner decorations */
-.hud-tl,.hud-tr,.hud-bl,.hud-br{position:absolute;width:50px;height:50px;z-index:10;pointer-events:none}
-.hud-tl{top:20px;left:20px;border-top:1px solid rgba(0,212,255,.4);border-left:1px solid rgba(0,212,255,.4)}
-.hud-tr{top:20px;right:20px;border-top:1px solid rgba(0,212,255,.4);border-right:1px solid rgba(0,212,255,.4)}
-.hud-bl{bottom:20px;left:20px;border-bottom:1px solid rgba(0,212,255,.4);border-left:1px solid rgba(0,212,255,.4)}
-.hud-br{bottom:20px;right:20px;border-bottom:1px solid rgba(0,212,255,.4);border-right:1px solid rgba(0,212,255,.4)}
+        /* ========== NAVBAR ========== */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px 5%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 7, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
 
-/* Scene content wrapper */
-.scene-content{position:absolute;inset:0;z-index:20;display:flex;align-items:center;padding:0 6rem}
-.scene-content.centered{justify-content:center;text-align:center}
-.scene-content.right{justify-content:flex-end}
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-/* ===== ANIMATED ENTRY for scene content ===== */
-.s-eyebrow,.s-title,.s-sub,.s-body,.s-actions,.s-cards{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.scene.active .s-eyebrow{opacity:1;transform:none;transition-delay:.1s}
-.scene.active .s-title{opacity:1;transform:none;transition-delay:.25s}
-.scene.active .s-sub{opacity:1;transform:none;transition-delay:.4s}
-.scene.active .s-body{opacity:1;transform:none;transition-delay:.5s}
-.scene.active .s-actions{opacity:1;transform:none;transition-delay:.6s}
-.scene.active .s-cards{opacity:1;transform:none;transition-delay:.5s}
+        .logo span {
+            color: var(--accent-orange);
+        }
 
-/* Text styles */
-.eyebrow{font-family:var(--mono);font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--cyan);display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
-.eyebrow::before{content:'';width:30px;height:1px;background:var(--cyan);box-shadow:0 0 6px var(--cyan);display:block}
-.scene-title{font-family:var(--orb);font-size:clamp(2.2rem,5vw,5rem);font-weight:900;line-height:1;letter-spacing:.02em;text-transform:uppercase;margin-bottom:1.25rem;text-shadow:0 0 40px rgba(0,212,255,.3)}
-.scene-title .glow{color:var(--cyan);text-shadow:0 0 30px rgba(0,212,255,.6),0 0 60px rgba(0,212,255,.3)}
-.scene-title .gold{color:var(--gold);text-shadow:0 0 30px rgba(201,169,110,.5)}
-.scene-sub{font-family:var(--raj);font-size:clamp(1rem,2vw,1.4rem);font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.25rem}
-.scene-body{font-family:var(--raj);font-size:1rem;color:var(--muted);line-height:1.8;max-width:560px;margin-bottom:2rem}
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
 
-/* Buttons */
-.btn-cyber{display:inline-flex;align-items:center;gap:.75rem;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--mono);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;padding:.9rem 2rem;text-decoration:none;transition:all .3s var(--ease);position:relative;overflow:hidden}
-.btn-cyber::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);z-index:0}
-.btn-cyber:hover{color:var(--black)}
-.btn-cyber:hover::before{transform:scaleX(1)}
-.btn-cyber span{position:relative;z-index:1}
-.btn-solid{display:inline-flex;align-items:center;gap:.75rem;background:var(--cyan);color:var(--black);font-family:var(--mono);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;padding:.9rem 2rem;text-decoration:none;transition:all .3s;font-weight:bold}
-.btn-solid:hover{background:var(--gold);transform:translateY(-2px)}
-.btn-solid span{position:relative;z-index:1}
-.btn-ghost-w{display:inline-flex;align-items:center;gap:.75rem;color:var(--muted);font-family:var(--mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s}
-.btn-ghost-w:hover{color:var(--white)}
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color var(--transition);
+        }
 
-/* ===== SCENE 0: HERO (VIDEO) ===== */
-.hero-video{position:absolute;inset:0;overflow:hidden}
-.hero-video video{width:100%;height:100%;object-fit:cover;opacity:.5}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(1,4,8,.9) 0%,rgba(1,4,8,.6) 50%,rgba(0,30,60,.3) 100%)}
-/* Glitch title effect */
-@keyframes glitch1{0%,94%,100%{transform:none;opacity:1}95%{transform:skew(-2deg) translate(-3px);opacity:.8}97%{transform:skew(1deg) translate(3px);opacity:.9}}
-@keyframes glitch2{0%,94%,100%{transform:none;clip-path:none}95%{clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);transform:translate(4px)}97%{clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);transform:translate(-4px)}}
-.glitch-wrap{position:relative;display:inline-block}
-.glitch-wrap::before,.glitch-wrap::after{content:attr(data-text);position:absolute;inset:0;font-family:var(--orb);font-size:inherit;font-weight:inherit;letter-spacing:inherit}
-.glitch-wrap::before{color:var(--cyan);left:2px;animation:glitch2 4s infinite}
-.glitch-wrap::after{color:rgba(201,169,110,.4);left:-2px;animation:glitch1 4s infinite .1s}
-/* Hero subtitle animated line */
-.hero-tagline{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
-.hero-tagline-line{flex:1;height:1px;background:linear-gradient(to right,var(--cyan),transparent);max-width:200px}
-.hero-tagline span{font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan)}
-/* Scroll hint animated */
-.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.75rem;z-index:30}
-.scroll-hint span{font-family:var(--mono);font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,212,255,.5)}
-.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(0,212,255,.6),transparent);animation:scrollPulse 2s ease-in-out infinite}
-@keyframes scrollPulse{0%{transform:scaleY(0);transform-origin:top;opacity:0}40%{opacity:1}60%{transform:scaleY(1);transform-origin:top;opacity:1}61%{transform:scaleY(1);transform-origin:bottom;opacity:1}100%{transform:scaleY(0);transform-origin:bottom;opacity:0}}
-/* Big stats HUD right side */
-.hero-stats{position:absolute;right:5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.5rem;z-index:30;opacity:0;transition:all 1s var(--ease)}
-.scene.active .hero-stats{opacity:1;transition-delay:.8s}
-.hstat{text-align:right}
-.hstat-num{font-family:var(--orb);font-size:2.5rem;font-weight:900;color:var(--cyan);line-height:1;text-shadow:0 0 20px rgba(0,212,255,.5)}
-.hstat-num sup{font-size:1rem;vertical-align:super}
-.hstat-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.hstat-divider{width:100%;height:1px;background:rgba(0,212,255,.15);margin-top:.5rem}
+        nav a:hover {
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
 
-/* ===== SCENE NAVIGATION DOTS ===== */
-.scene-nav{position:fixed;right:2.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:400}
-.snav-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(0,212,255,.4);background:transparent;transition:all .4s var(--ease);cursor:none;position:relative}
-.snav-dot::before{content:'';position:absolute;inset:-6px;border-radius:50%}
-.snav-dot.active{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 10px rgba(0,212,255,.6)}
-.snav-label{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none}
-.snav-dot:hover .snav-label,.snav-dot.active .snav-label{opacity:1}
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
 
-/* ===== SCENE 1: CREACIÓN WEB ===== */
-/* text left, bg image fills right */
+        .hero-content {
+            max-width: 800px;
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-/* ===== SCENE 2: E-COMMERCE ===== */
-/* floating cards layout */
-.ecom-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,212,255,.08);margin-top:2rem;max-width:500px}
-.ecom-card{background:rgba(8,13,20,.7);border:1px solid rgba(0,212,255,.1);padding:1.25rem 1.5rem;backdrop-filter:blur(10px);transition:all .4s;position:relative}
-.ecom-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--cyan);transition:height .4s}
-.ecom-card:hover::before{height:100%}
-.ecom-card:hover{background:rgba(0,212,255,.07)}
-.ecom-title{font-family:var(--orb);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.5rem}
-.ecom-desc{font-family:var(--raj);font-size:.8rem;color:var(--muted);line-height:1.6}
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255, 94, 0, 0.1);
+            border: 1px solid var(--accent-orange);
+            border-radius: 50px;
+            color: var(--accent-orange);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
 
-/* ===== SCENE 3: INNOVACIÓN PYME ===== */
-.pyme-features{display:flex;flex-direction:column;gap:1rem;max-width:480px;margin-top:2rem}
-.pyme-feat{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.25rem;border:1px solid rgba(0,212,255,.1);background:rgba(8,13,20,.65);backdrop-filter:blur(10px);transition:all .3s}
-.pyme-feat:hover{border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.06)}
-.feat-icon{color:var(--cyan);font-size:1.1rem;flex-shrink:0;margin-top:.1rem;text-shadow:0 0 8px var(--cyan)}
-.feat-text h4{font-family:var(--orb);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white);margin-bottom:.3rem}
-.feat-text p{font-family:var(--raj);font-size:.8rem;color:var(--muted);line-height:1.5}
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-/* ===== SCENE 4: PLAN AVANZADO (TECH AUTO) ===== */
-.plan-box{background:rgba(8,13,20,.8);border:1px solid rgba(201,169,110,.25);padding:2.5rem;backdrop-filter:blur(15px);position:relative;max-width:520px}
-.plan-box::before{content:'PLAN AVANZADO';position:absolute;top:-10px;left:1.5rem;font-family:var(--mono);font-size:.55rem;letter-spacing:.3em;background:var(--dark);padding:0 .75rem;color:var(--gold)}
-.plan-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:var(--black);font-family:var(--orb);font-size:.55rem;letter-spacing:.15em;padding:.4rem .9rem;margin-bottom:1.5rem;font-weight:700}
-.plan-list{list-style:none;display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem}
-.plan-list li{display:flex;align-items:flex-start;gap:.9rem;font-family:var(--raj);font-size:.9rem;color:var(--muted);line-height:1.5}
-.plan-list li::before{content:'✓';color:var(--cyan);font-family:var(--mono);font-size:.7rem;flex-shrink:0;margin-top:.15rem;text-shadow:0 0 8px var(--cyan)}
-.plan-list li strong{color:var(--white);font-weight:600}
-.plan-price-note{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,169,110,.6);margin-bottom:1.5rem;border-top:1px solid rgba(201,169,110,.15);padding-top:1rem}
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
 
-/* ===== SCENE 5: CONTACTO ===== */
-.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;width:100%;max-width:1100px;align-items:start}
-.contact-left h3{font-family:var(--orb);font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;text-transform:uppercase;margin-bottom:1rem;letter-spacing:.05em}
-.contact-left p{color:var(--muted);line-height:1.8;margin-bottom:2rem;font-family:var(--raj)}
-.c-detail{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.25rem}
-.c-icon{width:36px;height:36px;border:1px solid rgba(0,212,255,.3);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:.9rem;flex-shrink:0}
-.c-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:.3rem}
-.c-val{font-family:var(--raj);font-size:.9rem;color:var(--white)}
-/* Form */
-.fgrp{margin-bottom:1.25rem}
-.fgrp label{display:block;font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,212,255,.5);margin-bottom:.6rem}
-.fgrp input,.fgrp textarea,.fgrp select{width:100%;background:rgba(13,21,32,.8);border:1px solid rgba(0,212,255,.15);color:var(--white);padding:.8rem 1.1rem;font-family:var(--raj);font-size:.9rem;font-weight:300;outline:none;transition:border-color .3s;appearance:none}
-.fgrp input::placeholder,.fgrp textarea::placeholder{color:rgba(238,244,255,.2)}
-.fgrp input:focus,.fgrp textarea:focus,.fgrp select:focus{border-color:rgba(0,212,255,.5);box-shadow:0 0 0 1px rgba(0,212,255,.1)}
-.fgrp select option{background:var(--dark2)}
-.fgrp textarea{height:110px;resize:vertical}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.fn{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:rgba(0,212,255,.3);margin-bottom:1.5rem}
-.btn-wa{width:100%;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;font-family:var(--orb);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:1rem;border:none;cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:.75rem}
-.btn-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.3)}
+        .stat-highlight {
+            color: var(--text-main);
+            font-weight: 600;
+        }
 
-/* ===== MARQUEE ===== */
-.marquee-wrap{border-top:1px solid rgba(0,212,255,.08);border-bottom:1px solid rgba(0,212,255,.08);overflow:hidden;padding:1rem 0;background:rgba(8,13,20,.9)}
-.marquee-track{display:flex;white-space:nowrap;animation:marquee 30s linear infinite}
-.marquee-item{display:flex;align-items:center;gap:2rem;padding:0 2.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,212,255,.3)}
-.marquee-dot{width:4px;height:4px;background:rgba(0,212,255,.4);border-radius:50%;flex-shrink:0}
+        /* ========== BOTONES ========== */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 48px;
+            background: var(--accent-orange);
+            color: #fff;
+            border: none;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
 
-/* ===== POST-SCROLL: PORTFOLIO ===== */
-.regular{padding:8rem 6rem;position:relative}
-.regular::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.02;background-image:linear-gradient(rgba(0,212,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,1) 1px,transparent 1px);background-size:60px 60px}
-.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(0,212,255,.05);margin-top:4rem}
-.port-item{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--dark2)}
-.port-item:nth-child(1){grid-column:span 2;aspect-ratio:16/7}
-.port-item img{width:100%;height:100%;object-fit:cover;opacity:.55;transition:all .7s var(--ease)}
-.port-item:hover img{opacity:.85;transform:scale(1.05)}
-.port-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(1,4,8,.95) 0%,transparent 50%)}
-.port-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 2rem;transform:translateY(6px);transition:transform .4s var(--ease)}
-.port-item:hover .port-info{transform:none}
-.port-cat{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:.4rem}
-.port-name{font-family:var(--orb);font-size:1.1rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.port-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.07;pointer-events:none}
-.port-placeholder-text{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;text-align:center}
+        /* Destello persuasivo en el botón */
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transition: left 0.6s ease;
+        }
 
-/* TESTIMONIALS */
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(0,212,255,.05);margin-top:4rem}
-.testi-card{background:rgba(13,21,32,.8);padding:2.5rem 2rem;border:1px solid rgba(0,212,255,.06);transition:all .3s;position:relative}
-.testi-card:hover{background:rgba(0,212,255,.04);border-color:rgba(0,212,255,.15)}
-.testi-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--cyan);transition:width .5s}
-.testi-card:hover::before{width:100%}
-.tq{font-family:var(--raj);font-size:.95rem;line-height:1.75;color:rgba(238,244,255,.7);margin-bottom:2rem;font-style:italic}
-.tq::before{content:'"';font-family:var(--orb);font-size:2rem;color:var(--cyan);line-height:0;vertical-align:-.4rem;margin-right:.2rem;opacity:.6}
-.ta{display:flex;align-items:center;gap:1rem}
-.tav{width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,212,255,.2);background:rgba(0,212,255,.07);display:flex;align-items:center;justify-content:center;font-family:var(--orb);font-size:.7rem;color:var(--cyan)}
-.tname{font-family:var(--raj);font-size:.875rem;color:var(--white);font-weight:600}
-.trole{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:var(--faint);margin-top:.2rem;text-transform:uppercase}
+        .button:hover::before {
+            left: 100%;
+        }
 
-/* BIG CTA */
-.big-cta{padding:10rem 6rem;background:linear-gradient(135deg,rgba(0,212,255,.06) 0%,transparent 60%);text-align:center;border-top:1px solid rgba(0,212,255,.08);border-bottom:1px solid rgba(0,212,255,.08);position:relative;overflow:hidden}
-.big-cta::before{content:'NEXO';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--orb);font-size:20rem;font-weight:900;color:rgba(0,212,255,.02);letter-spacing:.2em;pointer-events:none;white-space:nowrap}
-.big-cta h2{font-family:var(--orb);font-size:clamp(2rem,5vw,4.5rem);font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1.5rem;position:relative;z-index:1}
-.big-cta h2 .glow{color:var(--cyan);text-shadow:0 0 30px rgba(0,212,255,.5)}
-.big-cta p{font-family:var(--raj);font-size:1rem;color:var(--muted);max-width:500px;margin:0 auto 2.5rem;line-height:1.8;position:relative;z-index:1}
-.cta-btns{display:flex;gap:1.5rem;justify-content:center;position:relative;z-index:1}
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 94, 0, 0.6);
+        }
 
-/* FOOTER */
-footer{background:var(--dark);border-top:1px solid rgba(0,212,255,.06);padding:4rem 6rem 2.5rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:3rem}
-.footer-logo{font-family:var(--orb);font-size:.9rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;color:var(--white)}
-.footer-logo span{color:var(--cyan)}
-.footer-brand p{font-family:var(--raj);font-size:.85rem;color:var(--faint);line-height:1.8;max-width:280px}
-.footer-col h4{font-family:var(--mono);font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(0,212,255,.4);margin-bottom:1.25rem}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.75rem}
-.footer-col a{font-family:var(--raj);font-size:.875rem;color:var(--faint);text-decoration:none;transition:color .3s}
-.footer-col a:hover{color:var(--cyan)}
-.footer-bottom{border-top:1px solid rgba(0,212,255,.06);padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
-.fcopy{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--faint)}
-.flegal{display:flex;gap:2rem}
-.flegal a{font-family:var(--mono);font-size:.6rem;color:var(--faint);text-decoration:none;transition:color .3s;letter-spacing:.1em;text-transform:uppercase}
-.flegal a:hover{color:var(--cyan)}
+        /* ========== SECCIONES ========== */
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(35px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
 
-/* TOAST */
-.toast{position:fixed;bottom:2rem;right:2rem;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:1rem 1.75rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;z-index:1000;transform:translateY(100px);opacity:0;transition:all .4s var(--ease);border-left:3px solid #fff}
-.toast.show{transform:none;opacity:1}
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
 
-/* KEYFRAMES */
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-/* GLOW PULSE */
-@keyframes glowPulse{0%,100%{box-shadow:0 0 15px rgba(0,212,255,.2)}50%{box-shadow:0 0 30px rgba(0,212,255,.5),0 0 60px rgba(0,212,255,.2)}}
+        /* ========== GRID DIFERENCIALES ========== */
+        .differentials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* RESPONSIVE */
-@media(max-width:1024px){
-  nav{padding:1.25rem 2rem}
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .nav-cta{display:none}
-  .scene-content{padding:0 2rem}
-  .hero-stats{right:2rem}
-  .hstat-num{font-size:1.8rem}
-  .scene-nav{display:none}
-  .contact-wrap{grid-template-columns:1fr;gap:2.5rem}
-  .frow{grid-template-columns:1fr}
-  .port-grid{grid-template-columns:1fr}
-  .port-item:nth-child(1){grid-column:span 1;aspect-ratio:4/3}
-  .testi-grid{grid-template-columns:1fr}
-  .regular{padding:5rem 2rem}
-  .big-cta{padding:6rem 2rem}
-  footer{padding:3rem 2rem 2rem}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
-  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-  .ecom-grid{grid-template-columns:1fr}
-  .cta-btns{flex-direction:column;align-items:center}
-  body{cursor:auto}
-  .cursor,.cursor-ring{display:none}
-}
-@media(max-width:640px){
-  .scene-title{font-size:2rem}
-  .footer-grid{grid-template-columns:1fr}
-  .hud-tl,.hud-tr,.hud-bl,.hud-br{display:none}
-  .hero-stats{display:none}
-}
-</style>
+        .differential {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: transform var(--transition), border var(--transition);
+        }
+
+        .differential:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 94, 0, 0.4);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .differential-icon {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            color: var(--accent-orange);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .differential h3 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .differential p {
+            color: var(--text-muted);
+        }
+
+        /* ========== FORMULARIO ========== */
+        .form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(5, 5, 7, 0.7);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            font-size: 16px;
+            font-family: inherit;
+            transition: all var(--transition);
+            border-radius: 6px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(255, 94, 0, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #000;
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .highlight {
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        /* ========== ANIMACIONES SCROLL REVEAL ========== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .form-wrapper { padding: 30px 20px; }
+            .cinematic-bg { width: 250vw; height: 250vh; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-<div class="toast" id="toast">✓ Abriendo WhatsApp...</div>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="mobileClose">✕</button>
-  <a href="#" onclick="goScene(0);closeMobile()">Inicio</a>
-  <a href="#" onclick="goScene(1);closeMobile()">Servicios</a>
-  <a href="#" onclick="goScene(2);closeMobile()">E-Commerce</a>
-  <a href="#" onclick="goScene(3);closeMobile()">Pyme</a>
-  <a href="#" onclick="goScene(4);closeMobile()">Plan Avanzado</a>
-  <a href="#" onclick="goScene(5);closeMobile()">Contacto</a>
-</div>
-
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#" class="nav-logo" onclick="goScene(0);return false">NEXO<span class="dot">·</span>ART</a>
-  <ul class="nav-links">
-    <li><a href="#" onclick="goScene(1);return false">Servicios</a></li>
-    <li><a href="#" onclick="goScene(2);return false">E-Commerce</a></li>
-    <li><a href="#" onclick="goScene(3);return false">Innovación</a></li>
-    <li><a href="#" onclick="goScene(4);return false">Plan Avanzado</a></li>
-    <li><a href="#portafolio">Portfolio</a></li>
-  </ul>
-  <a href="#" onclick="goScene(5);return false" class="nav-cta">Iniciar Proyecto</a>
-  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-</nav>
-
-<!-- SCENE NAV DOTS -->
-<div class="scene-nav" id="sceneNav">
-  <div class="snav-dot active" onclick="goScene(0)"><div class="snav-label">Inicio</div></div>
-  <div class="snav-dot" onclick="goScene(1)"><div class="snav-label">Sitios Web</div></div>
-  <div class="snav-dot" onclick="goScene(2)"><div class="snav-label">E-Commerce</div></div>
-  <div class="snav-dot" onclick="goScene(3)"><div class="snav-label">PYME</div></div>
-  <div class="snav-dot" onclick="goScene(4)"><div class="snav-label">Plan Avanzado</div></div>
-  <div class="snav-dot" onclick="goScene(5)"><div class="snav-label">Contacto</div></div>
-</div>
-
-<!-- ==================== SCROLL SCENES ==================== -->
-<div class="scenes-wrapper" id="scenesWrapper">
-<div class="scenes-sticky" id="scenesSticky">
-
-  <!-- ===== SCENE 0: HERO CON VIDEO ===== -->
-  <div class="scene active" id="scene-0">
-    <div class="hero-video">
-      <video autoplay muted loop playsinline id="heroBgVideo">
-        <source src="https://raw.githubusercontent.com/NEXOar-art/NEXO-art/main/Video%20Project%202.mp4" type="video/mp4">
-        <source src="https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_24fps.mp4" type="video/mp4">
-      </video>
+    <div class="vignette"></div>
+    <div class="cinematic-bg" id="rotative-bg">
+        <img src="" alt="Auto en diagnóstico">
     </div>
-    <div class="hero-overlay"></div>
-    <div class="scanlines"></div>
-    <div class="hud-tl"></div><div class="hud-tr"></div>
-    <div class="hud-bl"></div><div class="hud-br"></div>
-    <!-- Hero Stats right -->
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-num">94<sup>%</sup></div><div class="hstat-label">Primeras impresiones por diseño</div><div class="hstat-divider"></div></div>
-      <div class="hstat"><div class="hstat-num">3<sup>s</sup></div><div class="hstat-label">Ventana de atención del usuario</div><div class="hstat-divider"></div></div>
-      <div class="hstat"><div class="hstat-num">24H</div><div class="hstat-label">Entrega Plan Avanzado</div></div>
-    </div>
-    <!-- Main content -->
-    <div class="scene-content" style="z-index:30">
-      <div style="max-width:700px">
-        <div class="s-eyebrow"><div class="eyebrow">Tu Nexo al Futuro Digital</div></div>
-        <h1 class="scene-title s-title" style="font-size:clamp(2.5rem,6vw,6rem);line-height:.9;margin-bottom:1.5rem">
-          <div class="glitch-wrap" data-text="NEXO-ART">NEXO-ART</div><br>
-          <span class="glow">PREMIUM</span>
-        </h1>
-        <div class="hero-tagline s-sub">
-          <div class="hero-tagline-line"></div>
-          <span>Innovación · Autoridad · Resultados</span>
-          <div class="hero-tagline-line"></div>
-        </div>
-        <p class="scene-body s-body" style="font-size:1.05rem">Creamos sitios web que posicionan marcas, convierten visitantes en clientes y trabajan por vos las 24 horas. Diseño de alto impacto, SEO avanzado y asistente inteligente incluido.</p>
-        <div class="s-actions" style="display:flex;gap:1.25rem;flex-wrap:wrap">
-          <a href="#" onclick="goScene(1);return false" class="btn-solid"><span>Ver Servicios</span> →</a>
-          <a href="#" onclick="goScene(5);return false" class="btn-cyber"><span>Iniciar Proyecto</span></a>
-        </div>
-      </div>
-    </div>
-    <div class="scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </div>
 
-  <!-- ===== SCENE 1: CREACIÓN SITIOS WEB (SECCION4.png) ===== -->
-  <div class="scene" id="scene-1">
-    <div class="scene-bg" style="background-image:url('s4.png')"></div>
-    <div class="overlay-dark"></div>
-    <div class="scanlines"></div>
-    <div class="hud-tl"></div><div class="hud-tr"></div><div class="hud-bl"></div><div class="hud-br"></div>
-    <div class="scene-content" style="z-index:20">
-      <div style="max-width:600px">
-        <div class="s-eyebrow"><div class="eyebrow">Servicios Web <span style="color:var(--faint)">/ 01</span></div></div>
-        <h2 class="scene-title s-title">CREACIÓN DE<br><span class="glow">SITIOS WEB</span><br>PROFESIONALES</h2>
-        <p class="scene-sub s-sub">Diseño moderno y limpio · Plataformas digitales</p>
-        <p class="scene-body s-body">Desarrollamos sitios web de alta calidad, modernos y enfocados en resultados. Cada proyecto es una plataforma digital diseñada desde cero para posicionar tu marca con autoridad y convertir visitas en ventas.</p>
-        <div class="s-actions" style="display:flex;gap:1rem;flex-wrap:wrap">
-          <a href="#" onclick="goScene(2);return false" class="btn-solid"><span>E-Commerce →</span></a>
-          <a href="#" onclick="goScene(5);return false" class="btn-cyber"><span>Cotizá tu sitio</span></a>
-        </div>
-      </div>
-    </div>
-    <!-- Right side floating features -->
-    <div class="s-cards" style="position:absolute;right:5rem;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:1rem;max-width:320px">
-      <div class="ecom-card">
-        <div class="ecom-title">⚡ Sitios Webs de Alta Calidad</div>
-        <div class="ecom-desc">Performance, velocidad y diseño que impacta desde el primer segundo.</div>
-      </div>
-      <div class="ecom-card">
-        <div class="ecom-title">🏗 Desarrollo de Plataformas Digitales</div>
-        <div class="ecom-desc">Arquitectura escalable para crecer sin límites.</div>
-      </div>
-      <div class="ecom-card">
-        <div class="ecom-title">✦ Moderno y Limpio</div>
-        <div class="ecom-desc">Diseño sin distracciones. Tu mensaje, siempre al frente.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== SCENE 2: E-COMMERCE (SECCION1.png) ===== -->
-  <div class="scene" id="scene-2">
-    <div class="scene-bg" style="background-image:url('s1.png')"></div>
-    <div class="overlay-dark"></div>
-    <div class="scanlines"></div>
-    <div class="hud-tl"></div><div class="hud-tr"></div><div class="hud-bl"></div><div class="hud-br"></div>
-    <div class="scene-content" style="z-index:20">
-      <div style="max-width:620px">
-        <div class="s-eyebrow"><div class="eyebrow">E-Commerce <span style="color:var(--faint)">/ 02</span></div></div>
-        <h2 class="scene-title s-title">RED NEXO<br><span class="glow">COMERCIO</span><br>ELECTRÓNICO</h2>
-        <p class="scene-sub s-sub">Tiendas virtuales · Marketing digital · Logística IA</p>
-        <p class="scene-body s-body">Construimos tu ecosistema de e-commerce completo: tienda virtual personalizada, marketing digital dirigido, gestión de inventario inteligente y atención al cliente con IA 24/7.</p>
-        <div class="ecom-grid s-cards">
-          <div class="ecom-card">
-            <div class="ecom-title">🛍 Tiendas Virtuales</div>
-            <div class="ecom-desc">Personalizadas para tu marca y audiencia.</div>
-          </div>
-          <div class="ecom-card">
-            <div class="ecom-title">📊 Marketing Digital</div>
-            <div class="ecom-desc">Campañas dirigidas con IA para máxima conversión.</div>
-          </div>
-          <div class="ecom-card">
-            <div class="ecom-title">📦 Logística Avanzada</div>
-            <div class="ecom-desc">Soluciones de reparto autónomo integradas.</div>
-          </div>
-          <div class="ecom-card">
-            <div class="ecom-title">🤖 Atención IA 24/7</div>
-            <div class="ecom-desc">Asistente inteligente que vende mientras dormís.</div>
-          </div>
-        </div>
-        <div class="s-actions" style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap">
-          <a href="#" onclick="goScene(3);return false" class="btn-solid"><span>Ver Innovación Pyme →</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== SCENE 3: INNOVACIÓN PYME (SECCION2.png) ===== -->
-  <div class="scene" id="scene-3">
-    <div class="scene-bg" style="background-image:url('s2.png')"></div>
-    <div class="overlay-dark"></div>
-    <div class="scanlines"></div>
-    <div class="hud-tl"></div><div class="hud-tr"></div><div class="hud-bl"></div><div class="hud-br"></div>
-    <div class="scene-content" style="z-index:20">
-      <div style="max-width:600px">
-        <div class="s-eyebrow"><div class="eyebrow">Para tu empresa <span style="color:var(--faint)">/ 03</span></div></div>
-        <h2 class="scene-title s-title">RED NEXO<br><span class="glow">INNOVACIÓN</span><br>PYME</h2>
-        <p class="scene-sub s-sub">Transformación digital · Financiación · Talento</p>
-        <p class="scene-body s-body">Llevamos a las PyMEs al futuro con tecnología accesible. Diseño generativo, micro-tecnología sostenible, acceso a financiación global y mercado de talento especializado.</p>
-        <div class="pyme-features s-cards">
-          <div class="pyme-feat">
-            <span class="feat-icon">◈</span>
-            <div class="feat-text"><h4>Bio-Alimentos Artesanales</h4><p>Plataformas digitales para productores con alcance global.</p></div>
-          </div>
-          <div class="pyme-feat">
-            <span class="feat-icon">⬡</span>
-            <div class="feat-text"><h4>Diseño Generativo Pyme</h4><p>Identidad visual generada con IA, única para tu negocio.</p></div>
-          </div>
-          <div class="pyme-feat">
-            <span class="feat-icon">▲</span>
-            <div class="feat-text"><h4>Micro-Tecnología Sostenible</h4><p>Soluciones tech de bajo costo con máximo impacto.</p></div>
-          </div>
-        </div>
-        <div class="s-actions" style="margin-top:1.5rem">
-          <a href="#" onclick="goScene(4);return false" class="btn-solid"><span>Plan Avanzado →</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== SCENE 4: PLAN AVANZADO (SECCION3.png) ===== -->
-  <div class="scene" id="scene-4">
-    <div class="scene-bg" style="background-image:url('s3.png')"></div>
-    <div class="overlay-dark"></div>
-    <div class="scanlines"></div>
-    <div class="hud-tl"></div><div class="hud-tr"></div><div class="hud-bl"></div><div class="hud-br"></div>
-    <div class="scene-content right" style="z-index:20;padding:0 5rem">
-      <div class="plan-box s-body">
-        <div class="plan-badge">★ Plan Avanzado · Todo Incluido</div>
-        <h2 class="scene-title s-title" style="font-size:clamp(1.8rem,3vw,3rem);margin-bottom:1.25rem">TODO LO QUE<br><span class="gold">NECESITÁS</span><br>EN UN PACK</h2>
-        <p style="font-family:var(--raj);color:var(--muted);font-size:.875rem;margin-bottom:1.5rem;line-height:1.7">La solución más completa del mercado para marcas que no admiten mediocridad.</p>
-        <ul class="plan-list">
-          <li><strong>Web completa full custom</strong> — diseño único, cero plantillas</li>
-          <li><strong>SEO técnico avanzado</strong> — posicionamiento real en Google</li>
-          <li><strong>Email Marketing integrado</strong> — campañas automatizadas</li>
-          <li><strong>Mantenimiento mensual</strong> — tu sitio siempre actualizado</li>
-          <li><strong>Asistente NLM</strong> — tu empleado robusto 24/7</li>
-          <li>Entrenado constantemente con los datos de tu negocio</li>
-          <li>Responde, vende y agenda en tiempo real</li>
+    <nav>
+        <a href="#" class="logo">Taller <span>SFA</span></a>
+        <ul class="nav-links">
+            <li><a href="#servicios">Ingeniería Automotriz</a></li>
+            <li><a href="#diagnostico">Escanear Auto</a></li>
         </ul>
-        <div class="plan-price-note">⚡ Entrega garantizada en 24 horas hábiles</div>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap">
-          <a href="#" onclick="goScene(5);return false" class="btn-solid"><span>Quiero este Plan →</span></a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Diagnóstico Inteligente</div>
+            <h1>Precisión Analítica para tu Motor</h1>
+            <p>
+                Analizamos los datos, no adivinamos. 
+                <span class="stat-highlight">El 85% de las fallas críticas se previenen cruzando datos precisos con un correcto contexto estadístico.</span> 
+                Transparencia total y procesos automatizados.
+            </p>
+            <button class="button" onclick="scrollToSection('#diagnostico')">Diagnosticar Ahora</button>
         </div>
-      </div>
-    </div>
-    <!-- Left label -->
-    <div style="position:absolute;left:5rem;bottom:3rem;z-index:20;opacity:0;transition:all .9s var(--ease) .3s" class="s-eyebrow">
-      <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(0,212,255,.5)">Mantenimiento · Reparación · Alta Tecnología</div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ===== SCENE 5: CONTACTO ===== -->
-  <div class="scene" id="scene-5">
-    <div class="scene-bg" style="background-image:url('s4.png');filter:brightness(.3) hue-rotate(180deg)"></div>
-    <div style="position:absolute;inset:0;background:rgba(1,4,8,.88)"></div>
-    <div class="scanlines"></div>
-    <div class="hud-tl"></div><div class="hud-tr"></div><div class="hud-bl"></div><div class="hud-br"></div>
-    <div class="scene-content centered" style="z-index:20;align-items:flex-start;overflow-y:auto;padding:5rem 4rem 2rem">
-      <div class="contact-wrap">
-        <div class="contact-left s-title">
-          <div class="eyebrow" style="justify-content:flex-start;margin-bottom:1.25rem">Contacto <span style="color:var(--faint)">/06</span></div>
-          <h3 style="color:var(--white)">HABLEMOS DE<br><span class="glow">TU PROYECTO</span></h3>
-          <p style="margin-top:1.25rem;font-size:.95rem">Respondemos en menos de 24 horas. Sin presión, sin promesas vacías. Una conversación directa para ver cómo podemos llevar tu marca al siguiente nivel.</p>
-          <div class="c-detail" style="margin-top:1.5rem">
-            <div class="c-icon" style="color:#25D366;border-color:rgba(37,211,102,.3)">📱</div>
-            <div><div class="c-label">WhatsApp Business</div><div class="c-val">+54 3489 686939</div></div>
-          </div>
-          <div class="c-detail">
-            <div class="c-icon">✉</div>
-            <div><div class="c-label">Email</div><div class="c-val">hola@nexoartpremium.com</div></div>
-          </div>
-          <div class="c-detail">
-            <div class="c-icon">◎</div>
-            <div><div class="c-label">Horario</div><div class="c-val">Lun–Vie 9:00–18:00 ART</div></div>
-          </div>
-          <div class="c-detail">
-            <div class="c-icon" style="font-size:.65rem;font-family:var(--mono)">24H</div>
-            <div><div class="c-label">Entrega plan avanzado</div><div class="c-val" style="color:var(--cyan)">Entrega garantizada en 24hs</div></div>
-          </div>
+    <section id="servicios" class="glass-panel">
+        <div class="section-header scroll-reveal">
+            <h2 class="section-title">Ingeniería en Diagnóstico</h2>
+            <p class="section-subtitle">Implementamos tecnología predictiva. Evaluamos tu auto comparándolo con las bases de datos estadísticas más recientes de su modelo.</p>
         </div>
-        <div class="s-body">
-          <div class="frow">
-            <div class="fgrp"><label>Nombre</label><input type="text" id="fn" placeholder="Tu nombre"></div>
-            <div class="fgrp"><label>Empresa</label><input type="text" id="fe" placeholder="Tu empresa"></div>
-          </div>
-          <div class="fgrp"><label>Email</label><input type="email" id="fem" placeholder="tu@email.com"></div>
-          <div class="fgrp">
-            <label>Tipo de proyecto</label>
-            <select id="ft">
-              <option value="" disabled selected>Seleccioná una opción</option>
-              <option>Sitio corporativo nuevo</option>
-              <option>Rediseño de sitio existente</option>
-              <option>Landing de conversión</option>
-              <option>E-Commerce completo</option>
-              <option>Plan Avanzado (Full + NLM 24/7)</option>
-              <option>Consultoría digital</option>
-              <option>Otro</option>
-            </select>
-          </div>
-          <div class="fgrp"><label>Mensaje</label><textarea id="fm" placeholder="Contame tu proyecto, objetivos y presupuesto estimado..."></textarea></div>
-          <p class="fn">Tu info es confidencial. Al enviar, abrimos WhatsApp con tu consulta lista.</p>
-          <button class="btn-wa" id="btnWA">
-            <span>💬</span>
-            <span>Enviar por WhatsApp → +54 3489 686939</span>
-          </button>
+        
+        <div class="differentials">
+            <div class="differential scroll-reveal">
+                <div class="differential-icon">⚡</div>
+                <h3>Automatizado</h3>
+                <p>Lectura de sensores automatizada. Cruzamos la métrica de tu motor con historiales globales en segundos para ofrecer una respuesta rápida.</p>
+            </div>
+
+            <div class="differential scroll-reveal">
+                <div class="differential-icon">🎯</div>
+                <h3>Análisis con IA</h3>
+                <p>Equipos de última generación con algoritmos predictivos que garantizan dar con la raíz estadística de la falla, sin gastos a ciegas.</p>
+            </div>
+
+            <div class="differential scroll-reveal">
+                <div class="differential-icon">📊</div>
+                <h3>Métricas Claras</h3>
+                <p>Un informe donde cada parámetro cuenta. Recibes un reporte con datos que respaldan el por qué de cada reparación y su solución idónea.</p>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-</div><!-- scenes-sticky -->
-</div><!-- scenes-wrapper -->
+    <section id="diagnostico">
+        <div class="section-header scroll-reveal">
+            <h2 class="section-title">Pre-Diagnóstico Online</h2>
+            <p class="section-subtitle">Introduce los datos de tu vehículo y estructuraremos un primer análisis estadístico antes de que nos visites.</p>
+        </div>
+        
+        <form class="form-wrapper scroll-reveal" id="form-diagnostico">
+            <div class="form-group">
+                <label for="marca">Marca, Modelo y Año</label>
+                <input type="text" id="marca" name="marca" placeholder="Ej: Toyota Corolla 2022" required>
+            </div>
 
-<!-- ===== MARQUEE ===== -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item">Diseño Web Premium <span class="marquee-dot"></span></div>
-    <div class="marquee-item">SEO Técnico Avanzado <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Asistente NLM 24/7 <span class="marquee-dot"></span></div>
-    <div class="marquee-item">E-Commerce Global <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Email Marketing IA <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Entrega en 24hs <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Autoridad Digital <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Full Custom · Sin Plantillas <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Diseño Web Premium <span class="marquee-dot"></span></div>
-    <div class="marquee-item">SEO Técnico Avanzado <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Asistente NLM 24/7 <span class="marquee-dot"></span></div>
-    <div class="marquee-item">E-Commerce Global <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Email Marketing IA <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Entrega en 24hs <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Autoridad Digital <span class="marquee-dot"></span></div>
-    <div class="marquee-item">Full Custom · Sin Plantillas <span class="marquee-dot"></span></div>
-  </div>
-</div>
+            <div class="form-group">
+                <label for="problema">Datos de la Falla</label>
+                <textarea id="problema" name="problema" placeholder="Describe los síntomas, avisos del tablero o comportamientos irregulares..." required></textarea>
+            </div>
 
-<!-- ===== PORTFOLIO ===== -->
-<section class="regular" id="portafolio" style="background:var(--dark)">
-  <div class="eyebrow reveal">Trabajos Seleccionados <span style="color:var(--faint)">/04</span></div>
-  <h2 style="font-family:var(--orb);font-size:clamp(2rem,4vw,3.5rem);font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem" class="reveal rd1">RESULTADOS QUE <span class="glow">HABLAN SOLOS</span></h2>
-  <p style="font-family:var(--raj);color:var(--muted);max-width:500px;margin-bottom:0" class="reveal rd2">Proyectos reales, transformaciones digitales completas. <em style="color:rgba(0,212,255,.3);font-style:italic;font-size:.8rem">→ Reemplazar con capturas reales.</em></p>
-  <div class="port-grid reveal rd2">
-    <div class="port-item">
-      <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=1400&q=80&auto=format&fit=crop" alt="Arkana" loading="lazy">
-      <div class="port-overlay"></div>
-      <div class="port-info">
-        <div class="port-cat">Sitio Corporativo · 2025</div>
-        <div class="port-name">Arkana Capital Group</div>
-      </div>
-    </div>
-    <div class="port-item">
-      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80&auto=format&fit=crop" alt="Maison" loading="lazy">
-      <div class="port-overlay"></div>
-      <div class="port-info">
-        <div class="port-cat">E-Commerce · 2025</div>
-        <div class="port-name">Maison Verelle</div>
-      </div>
-    </div>
-    <div class="port-item">
-      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop" alt="Solara" loading="lazy">
-      <div class="port-overlay"></div>
-      <div class="port-info">
-        <div class="port-cat">Landing Page · 2024</div>
-        <div class="port-name">Solara Health</div>
-      </div>
-    </div>
-    <div class="port-item">
-      <img src="https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=800&q=80&auto=format&fit=crop" alt="Drex" loading="lazy">
-      <div class="port-overlay"></div>
-      <div class="port-info">
-        <div class="port-cat">Rediseño · 2024</div>
-        <div class="port-name">Drex Studio</div>
-      </div>
-    </div>
-  </div>
-</section>
+            <div class="form-group">
+                <label for="nombre">Tu Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
+            </div>
 
-<!-- ===== TESTIMONIOS ===== -->
-<section class="regular" style="background:var(--dark2);padding-top:5rem;padding-bottom:5rem">
-  <div class="eyebrow reveal">Clientes <span style="color:var(--faint)">/05</span></div>
-  <h2 style="font-family:var(--orb);font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;letter-spacing:.05em" class="reveal rd1">LO QUE DICEN<br><span class="glow">QUIENES CONFIARON</span></h2>
-  <div class="testi-grid">
-    <div class="testi-card reveal">
-      <p class="tq">El sitio que nos entregó no es solo visualmente impresionante. Desde el lanzamiento, nuestros leads calificados aumentaron un 180%. Eso es estrategia, no decoración.</p>
-      <div class="ta"><div class="tav">MV</div><div><div class="tname">Martina Vidal</div><div class="trole">CEO · Arkana Capital</div></div></div>
-    </div>
-    <div class="testi-card reveal rd1">
-      <p class="tq">El asistente NLM atiende consultas mientras dormimos. Pasamos de perder leads a convertirlos automáticamente. Una inversión que se pagó sola en el primer mes.</p>
-      <div class="ta"><div class="tav">RS</div><div><div class="tname">Roberto Salinas</div><div class="trole">Director · Maison Verelle</div></div></div>
-    </div>
-    <div class="testi-card reveal rd2">
-      <p class="tq">Nuestra tasa de conversión pasó de 1.2% a 4.7% en tres meses. Nunca creímos que un sitio pudiera hacer eso. El Plan Avanzado lo cambió todo.</p>
-      <div class="ta"><div class="tav">LC</div><div><div class="tname">Laura Contreras</div><div class="trole">Fundadora · Solara Health</div></div></div>
-    </div>
-  </div>
-</section>
+            <div class="form-group">
+                <label for="whatsapp">Tu WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ej: +54 266 446 4091" required>
+            </div>
 
-<!-- ===== BIG CTA ===== -->
-<section class="big-cta">
-  <h2 class="reveal">TU NEGOCIO MERECE<br>UNA PRESENCIA <span class="glow">A SU ALTURA</span></h2>
-  <p class="reveal rd1">El Plan Avanzado incluye todo: diseño premium, SEO, email marketing y un asistente que trabaja por vos 24/7. Entrega garantizada en 24 horas.</p>
-  <div class="cta-btns reveal rd2">
-    <a href="#" onclick="goScene(5);return false" class="btn-solid"><span>⚡ Quiero el Plan Avanzado</span></a>
-    <a href="#" onclick="goScene(5);return false" class="btn-cyber"><span>Contactar ahora</span></a>
-  </div>
-</section>
+            <button type="submit" class="button" style="width: 100%; margin-top: 20px;">Procesar Datos</button>
+        </form>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="footer-logo">NEXO<span>·</span>ART PREMIUM</div>
-      <p>Diseño web estratégico de alto nivel. Innovación, autoridad digital y resultados medibles para marcas que no admiten mediocridad.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Servicios</h4>
-      <ul>
-        <li><a href="#" onclick="goScene(1);return false">Sitios Web</a></li>
-        <li><a href="#" onclick="goScene(2);return false">E-Commerce</a></li>
-        <li><a href="#" onclick="goScene(3);return false">Innovación Pyme</a></li>
-        <li><a href="#" onclick="goScene(4);return false">Plan Avanzado</a></li>
-        <li><a href="#" onclick="goScene(4);return false">Asistente NLM</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Navegación</h4>
-      <ul>
-        <li><a href="#" onclick="goScene(0);return false">Inicio</a></li>
-        <li><a href="#portafolio">Portfolio</a></li>
-        <li><a href="#" onclick="goScene(5);return false">Contacto</a></li>
-        <li><a href="https://wa.me/543489686939">WhatsApp</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Redes</h4>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Behance</a></li>
-        <li><a href="#">Dribbble</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="fcopy">© 2025 NEXO-ART PREMIUM — Todos los derechos reservados.</div>
-    <div class="flegal"><a href="#">Términos</a><a href="#">Privacidad</a></div>
-  </div>
-</footer>
+    <footer>
+        <p>© 2024 Taller Mecánico San Francisco de Asís</p>
+        <p>Soluciones Automotrices <span class="highlight">Impulsadas por Datos</span></p>
+    </footer>
 
-<script>
-/* ========== CURSOR ========== */
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-let cx=0,cy=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cur.style.left=cx+'px';cur.style.top=cy+'px'});
-(function animR(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR)})();
-document.querySelectorAll('a,button,.port-item,.testi-card,.ecom-card,.pyme-feat,.snav-dot').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')});
-  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')});
-});
+    <script>
+        // ========== EFECTO SCROLL ROTATIVO (180 Grados) ==========
+        const rotativeBg = document.getElementById('rotative-bg');
+        
+        window.addEventListener('scroll', () => {
+            // Calculamos cuánto se ha hecho de scroll (progreso del 0.0 al 1.0)
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            
+            // Verificación de seguridad para evitar división por 0
+            if (maxScroll <= 0) return;
+            
+            const scrollProgress = scrollTop / maxScroll;
+            
+            // Convertimos ese progreso a grados (máximo 180deg)
+            const degrees = scrollProgress * 180;
+            
+            // requestAnimationFrame para asegurar animaciones fluidas a 60fps
+            requestAnimationFrame(() => {
+                rotativeBg.style.transform = `translate(-50%, -50%) rotate(${degrees}deg)`;
+            });
+        });
 
-/* ========== SCENE SYSTEM ========== */
-const TOTAL=6;
-let current=0;
-const wrapper=document.getElementById('scenesWrapper');
-const dots=document.querySelectorAll('.snav-dot');
+        // ========== EFECTO SCROLL REVEAL ==========
+        const reveals = document.querySelectorAll('.scroll-reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
-function activateScene(n){
-  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
-  dots.forEach(d=>d.classList.remove('active'));
-  const sc=document.getElementById('scene-'+n);
-  if(sc){sc.classList.add('active')}
-  if(dots[n])dots[n].classList.add('active');
-  current=n;
-}
+        reveals.forEach(el => revealObserver.observe(el));
 
-window.goScene=function(n){
-  const wTop=wrapper.getBoundingClientRect().top+window.scrollY;
-  window.scrollTo({top:wTop+n*window.innerHeight,behavior:'smooth'});
-};
+        // ========== SCROLL SUAVE ==========
+        function scrollToSection(selector) {
+            document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+        }
 
-/* Scroll listener */
-let ticking=false;
-window.addEventListener('scroll',()=>{
-  if(ticking)return;ticking=true;
-  requestAnimationFrame(()=>{
-    const wTop=wrapper.offsetTop;
-    const wH=wrapper.offsetHeight;
-    const sY=window.scrollY;
-    const vH=window.innerHeight;
-    if(sY>=wTop&&sY<wTop+wH-vH){
-      const idx=Math.min(TOTAL-1,Math.round((sY-wTop)/vH));
-      if(idx!==current)activateScene(idx);
-    }
-    // Navbar solid
-    document.getElementById('navbar').classList.toggle('solid',sY>60);
-    ticking=false;
-  });
-},{passive:true});
+        // ========== ENVÍO DE FORMULARIO A WHATSAPP ==========
+        const form = document.getElementById('form-diagnostico');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const marca = document.getElementById('marca').value.trim();
+            const problema = document.getElementById('problema').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
 
-activateScene(0);
-
-/* ========== MOBILE MENU ========== */
-document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('mobileMenu').classList.add('open'));
-document.getElementById('mobileClose').addEventListener('click',()=>document.getElementById('mobileMenu').classList.remove('open'));
-window.closeMobile=()=>document.getElementById('mobileMenu').classList.remove('open');
-
-/* ========== WHATSAPP FORM ========== */
-document.getElementById('btnWA').addEventListener('click',()=>{
-  const n=document.getElementById('fn').value.trim();
-  const e=document.getElementById('fe').value.trim();
-  const em=document.getElementById('fem').value.trim();
-  const t=document.getElementById('ft').value;
-  const m=document.getElementById('fm').value.trim();
-  if(!n||!em||!t){alert('Completá nombre, email y tipo de proyecto.');return;}
-  const txt=`*Nueva consulta — NEXO-ART PREMIUM*\n\n*Nombre:* ${n}\n*Empresa:* ${e||'—'}\n*Email:* ${em}\n*Proyecto:* ${t}\n\n*Mensaje:*\n${m||'Sin mensaje adicional'}`;
-  window.open(`https://wa.me/543489686939?text=${encodeURIComponent(txt)}`,'_blank');
-  const toast=document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(()=>toast.classList.remove('show'),4000);
-});
-
-/* ========== REVEAL ========== */
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target)}});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-
-/* ========== SCENE 4: show left label ========== */
-const s4=document.getElementById('scene-4');
-const s4obs=new MutationObserver(()=>{
-  const lbl=s4.querySelector('.s-eyebrow');
-  if(lbl)lbl.style.opacity=s4.classList.contains('active')?'1':'0';
-});
-if(s4)s4obs.observe(s4,{attributes:true,attributeFilter:['class']});
-</script>
+            const msg = `📊 *Solicitud de Análisis y Diagnóstico*\n\n👤 Cliente: ${nombre}\n📱 Teléfono: ${whatsapp}\n🚗 Vehículo: ${marca}\n⚠️ Anomalía reportada: ${problema}`;
+            
+            // Redirección a WhatsApp
+            window.open(`https://api.whatsapp.com/send?phone=542664464091&text=${encodeURIComponent(msg)}`, '_blank');
+        });
+    </script>
 </body>
 </html>

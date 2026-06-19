@@ -146,11 +146,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(15,12,9,.92)
 .mesa-select-wrap label{font-size:.78rem;color:var(--cream);}
 .mesa-num-select{background:var(--char);border:1px solid var(--border);color:var(--cream);padding:.35rem .7rem;border-radius:2px;font-size:.85rem;font-family:'DM Sans',sans-serif;cursor:pointer;min-width:80px;}
 .mesa-num-select:focus{outline:none;border-color:var(--gold);}
+.mesa-num-select option:disabled{color:#E07050;background:rgba(224,112,80,.08);}
+
+/* ── NUEVO: INPUT NOMBRE CLIENTE ── */
+.client-name-input{background:var(--char);border:1px solid var(--border);color:var(--cream);padding:.35rem .7rem;border-radius:2px;font-size:.85rem;font-family:'DM Sans',sans-serif;cursor:pointer;min-width:150px;}
+.client-name-input:focus{outline:none;border-color:var(--gold);}
+.client-name-input::placeholder{color:var(--muted);opacity:.7;}
+
 .mesa-badge{background:rgba(201,168,76,.12);border:1px solid var(--border);color:var(--gold);padding:.25rem .7rem;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:none;}
 .mesa-badge.visible{display:inline-flex;align-items:center;gap:.3rem;}
-.mesa-name-input{background:var(--char);border:1px solid var(--border);color:var(--cream);padding:.35rem .7rem;border-radius:2px;font-size:.85rem;font-family:'DM Sans',sans-serif;cursor:pointer;min-width:140px;}
-.mesa-name-input:focus{outline:none;border-color:var(--gold);}
-.mesa-name-input::placeholder{color:var(--muted);}
  
 /* ── CARRITO ── */
 .cart-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:250;}
@@ -172,8 +176,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(15,12,9,.92)
 .ci-price{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);min-width:64px;text-align:right;}
 .cart-empty{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;line-height:1.6;}
 .cart-footer{padding:1rem 1.2rem;border-top:1px solid var(--border);}
-.cart-mesa-info{display:flex;align-items:center;gap:.45rem;padding:.5rem .7rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:4px;margin-bottom:.8rem;font-size:.78rem;color:var(--gold);}
+.cart-mesa-info{display:flex;align-items:center;gap:.45rem;padding:.5rem .7rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:4px;margin-bottom:.5rem;font-size:.78rem;color:var(--gold);}
 .cart-mesa-info span{font-weight:600;}
+/* ── NUEVO: INFO CLIENTE EN CARRITO ── */
+.cart-client-info{display:flex;align-items:center;gap:.45rem;padding:.5rem .7rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:4px;margin-bottom:.5rem;font-size:.78rem;color:var(--gold);}
+.cart-client-info span{font-weight:600;}
 .cart-mesa-warning{display:flex;align-items:center;gap:.45rem;padding:.5rem .7rem;background:rgba(224,112,80,.08);border:1px solid rgba(224,112,80,.3);border-radius:4px;margin-bottom:.8rem;font-size:.78rem;color:#E07050;}
 .cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem;}
 .cart-total span:first-child{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
@@ -227,27 +234,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(15,12,9,.92)
 .mesa-tile.ocupada .mesa-status-txt{color:#E07050;}
 .mesa-tiempo{font-size:.62rem;color:var(--muted);margin-top:.1rem;}
 
-/* EFECTO TITILANTE PARA CAMBIO DE MESA */
-@keyframes mesaPulse {
-  0% { box-shadow: 0 0 0 0 rgba(201,168,76,0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(201,168,76,0); }
-  100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+/* ── NUEVO: EFECTO TITILANTE AL CAMBIAR ESTADO ── */
+@keyframes mesa-twinkle {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 rgba(201,168,76,0);   border-color: rgba(201,168,76,0); }
+  20%  { transform: scale(1.12); box-shadow: 0 0 24px rgba(201,168,76,.85); border-color: rgba(201,168,76,.9); }
+  40%  { transform: scale(.92);  box-shadow: 0 0 32px rgba(37,211,102,.75); border-color: rgba(37,211,102,.9); }
+  60%  { transform: scale(1.08); box-shadow: 0 0 28px rgba(201,168,76,.7);  border-color: rgba(201,168,76,.85); }
+  80%  { transform: scale(.98);  box-shadow: 0 0 16px rgba(201,168,76,.4);  border-color: rgba(201,168,76,.5); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 rgba(201,168,76,0);   border-color: rgba(201,168,76,0); }
 }
-.mesa-tile.pulse-effect {
-  animation: mesaPulse 0.6s ease-out;
-}
-.mesa-tile.pulse-effect::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border: 2px solid var(--gold);
-  border-radius: 8px;
-  animation: mesaFlash 0.6s ease-out;
-}
-@keyframes mesaFlash {
-  0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.05); }
-  100% { opacity: 0; transform: scale(1); }
+.mesa-tile.twinkle {
+  animation: mesa-twinkle 1s ease-in-out;
+  z-index: 10;
 }
  
 /* Sincronización indicator */
@@ -340,10 +338,14 @@ footer{background:var(--dark3);border-top:1px solid var(--border);padding:3rem 1
   .about-stats{grid-template-columns:1fr 1fr;}
   .lang-btn{font-size:.58rem;padding:.2rem .35rem;}
   .sync-indicator{top:auto;bottom:80px;right:1.5rem;}
+  .mesa-select-wrap{flex-direction:column;align-items:flex-start;gap:.4rem;width:100%;}
+  .client-name-input{width:100%;}
+  .mesa-num-select{width:100%;}
 }
 @media(prefers-reduced-motion:reduce){
   .hero-video-wrap video{animation:none;transform:scale(1);}
   .parallax-bg{animation:none !important;transition:none !important;transform:scale(1) !important;}
+  .mesa-tile.twinkle{animation:none;}
 }
 </style>
 </head>
@@ -365,7 +367,7 @@ footer{background:var(--dark3);border-top:1px solid var(--border);padding:3rem 1
     <span>Precios:</span> click sobre el precio para editarlo ·
     <span>Nombre/Descripción:</span> click para editar ·
     <span>Foto:</span> usá el botón 📷 en cada tarjeta ·
-    <span>Mesas:</span> clickeá en cada mesa para cambiar su estado (libre/ocupada). Los cambios se sincronizan en tiempo real.
+    <span>Mesas:</span> clickeá en cada mesa para cambiar su estado (libre/ocupada). Los cambios se sincronizan en tiempo real con efecto titilante.
   </p>
 </div>
  
@@ -500,21 +502,24 @@ footer{background:var(--dark3);border-top:1px solid var(--border);padding:3rem 1
         </label>
       </div>
     </div>
+    <!-- ═══════ SELECTOR DE MESA Y CLIENTE ═══════ -->
     <div class="mesa-selector reveal">
       <div class="mesa-selector-title">🍽️ ¿Estás en el local? <span class="mesa-required">*</span></div>
       <div class="mesa-row">
         <div class="mesa-check-wrap">
           <input type="checkbox" id="mesaCheck" onchange="toggleMesa(this.checked)">
-          <label for="mesaCheck">Indicar número de mesa</label>
+          <label for="mesaCheck">Indicar nombre y mesa</label>
         </div>
         <div class="mesa-select-wrap" id="mesaSelectWrap">
+          <input type="text" id="clientName" class="client-name-input" placeholder="👤 Tu nombre" maxlength="40" oninput="updateSendButtonState()">
           <label for="mesaNum">Mesa nº</label>
           <select id="mesaNum" class="mesa-num-select" onchange="updateMesaBadge()"></select>
-          <label for="mesaName" style="margin-left:0.5rem;">Tu nombre</label>
-          <input type="text" id="mesaName" class="mesa-name-input" placeholder="Ej: Juan" onchange="updateMesaBadge()">
         </div>
         <span class="mesa-badge" id="mesaBadge">🪑 <span>Mesa</span> <span id="mesaBadgeNum">–</span></span>
       </div>
+      <p style="color:var(--muted);font-size:.72rem;margin-top:.6rem;line-height:1.5;">
+        💡 Solo aparecen habilitadas las mesas <strong style="color:#25D366">libres</strong>. Las ocupadas no pueden seleccionarse para hacer pedidos.
+      </p>
     </div>
     <div class="cat-tabs" id="tabs"></div>
     <div class="menu-grid" id="menuGrid"></div>
@@ -533,7 +538,10 @@ footer{background:var(--dark3);border-top:1px solid var(--border);padding:3rem 1
     </div>
     <div class="cart-footer">
       <div class="cart-mesa-warning" id="cartMesaWarning" style="display:none;">
-        ⚠️ <span>Selecciona una mesa habilitada para enviar</span>
+        ⚠️ <span>Completá tu nombre y seleccioná una mesa libre</span>
+      </div>
+      <div class="cart-client-info" id="cartClientInfo" style="display:none;">
+        👤 <span>Cliente:</span> <span id="cartClientLabel">–</span>
       </div>
       <div class="cart-mesa-info" id="cartMesaInfo" style="display:none;">
         🪑 <span>Pedido para</span> <span id="cartMesaLabel">–</span>
@@ -576,7 +584,7 @@ footer{background:var(--dark3);border-top:1px solid var(--border);padding:3rem 1
     </div>
     <div class="mesas-grid reveal" id="mesasGrid"></div>
     <p style="color:var(--muted);font-size:.73rem;margin-top:1.2rem;text-align:center;" id="mesasHint">
-      Solo administradores pueden cambiar el estado de las mesas. Los cambios se sincronizan en tiempo real.
+      Solo administradores pueden cambiar el estado de las mesas. Los cambios se sincronizan en tiempo real con todos los dispositivos.
     </p>
   </div>
 </section>
@@ -678,10 +686,12 @@ footer{background:var(--dark3);border-top:1px solid var(--border);padding:3rem 1
  
 <script>
 // ══════════════════════════════════════════
-// 🔑 SUPABASE CONFIG - CREDENCIALES REALES
+// 🔑 SUPABASE CONFIG - CREDENCIALES
 // ══════════════════════════════════════════
+// URL: https://fqxhnhxocwfrbnxlaexs.supabase.co
+// Publishable Key: sb_publishable_k2QodTMjH7wS2s1kTRG6hg_5OMQJwOz
 const SUPA_URL = 'https://fqxhnhxocwfrbnxlaexs.supabase.co';
-const SUPA_KEY = 'sb_publishable_k2QodTMjH7wS2s1kTRG6hg_5OMQJwOz';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxeGhuaHhvY3dmcmJueGxhZXhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3Mzk4MzgsImV4cCI6MjA0ODMxNTgzOH0.sb_publishable_k2QodTMjH7wS2s1kTRG6hg_5OMQJwOz';
  
 let supabase_client = null;
 let supabaseOk = false;
@@ -752,7 +762,6 @@ let adminMode  = false;
 let pendingImgId   = null;
 let pendingPromoId = null;
 let mesaNumero = null;
-let mesaNombre = '';
 let currentLang = 'es';
  
 // ══════════════════════════════════════════
@@ -778,17 +787,14 @@ function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) ? I18N[cur
 async function init(){
   initSupabase();
   
-  // Cargar datos
   await loadMenuData();
   await loadPromosData();
   await initMesas();
   
-  // Renderizar
   renderTabs();
   renderMenu();
   renderPromos();
   
-  // Scroll reveal
   observeReveals();
   updateStatus();
   setInterval(updateStatus, 60000);
@@ -865,8 +871,8 @@ function setupMenuRealtime(){
         menuData = menuData.filter(m=>m.id!==item.id);
       }
       renderMenu();
-      updateSyncStatus(true, 'Sincronizado');
-      console.log('🔄 Menú actualizado');
+      updateSyncStatus(true, 'Menú sincronizado');
+      console.log('🔄 Menú actualizado en todos los dispositivos');
     })
     .subscribe(status=>{ 
       console.log('📡 Menu Realtime:', status); 
@@ -888,8 +894,8 @@ function setupPromosRealtime(){
         promosData = promosData.filter(p=>p.id!==item.id);
       }
       renderPromos();
-      updateSyncStatus(true, 'Sincronizado');
-      console.log('🔄 Promos actualizado');
+      updateSyncStatus(true, 'Promos sincronizadas');
+      console.log('🔄 Promos actualizado en todos los dispositivos');
     })
     .subscribe(status=>{ 
       console.log('📡 Promos Realtime:', status); 
@@ -910,12 +916,33 @@ function setupMesasRealtime(){
       renderMesas();
       initMesaSelector();
       
+      // Aplicar efecto titilante a la mesa actualizada
+      setTimeout(() => applyTwinkleToMesa(id), 50);
+      
       if(prevEstado===1 && estado===0) showMesaNotif(id);
-      updateSyncStatus(true, 'Sincronizado');
+      updateSendButtonState();
+      updateSyncStatus(true, 'Mesas sincronizadas');
     })
     .subscribe(status=>{ 
       console.log('📡 Mesas Realtime:', status); 
     });
+}
+
+// ══════════════════════════════════════════
+// NUEVO: EFECTO TITILANTE
+// ══════════════════════════════════════════
+function applyTwinkleToMesa(id){
+  const tiles = document.querySelectorAll('.mesa-tile');
+  tiles.forEach(tile => {
+    const numEl = tile.querySelector('.mesa-num');
+    if(numEl && numEl.textContent.trim() === String(id)){
+      tile.classList.remove('twinkle');
+      // Forzar reflow para reiniciar animación
+      void tile.offsetWidth;
+      tile.classList.add('twinkle');
+      setTimeout(() => tile.classList.remove('twinkle'), 1000);
+    }
+  });
 }
  
 // ══════════════════════════════════════════
@@ -978,6 +1005,7 @@ function renderMesas(){
     const libre = mesa.estado===0;
     return `
       <div class="mesa-tile ${libre?'libre':'ocupada'} ${adminMode?'admin-mode-edit':''}" 
+           data-mesa="${num}"
            onclick="${adminMode?`toggleMesaEstado(${num})`:''}">
         <div class="mesa-icon">${libre?'🪑':'🔴'}</div>
         <div class="mesa-num">${num}</div>
@@ -1010,15 +1038,10 @@ async function toggleMesaEstado(id){
   
   mesasData[id] = {...m, estado: newEstado, updated_at: new Date().toISOString()};
   renderMesas();
+  initMesaSelector();
   
-  // Agregar efecto titilante
-  const mesaElement = document.querySelector(`.mesa-tile:nth-child(${id})`);
-  if(mesaElement) {
-    mesaElement.classList.add('pulse-effect');
-    setTimeout(() => {
-      mesaElement.classList.remove('pulse-effect');
-    }, 600);
-  }
+  // Efecto titilante inmediato
+  setTimeout(() => applyTwinkleToMesa(id), 50);
   
   if(supabaseOk){
     try {
@@ -1034,13 +1057,14 @@ async function toggleMesaEstado(id){
         mesasData[id] = m;
         renderMesas();
       } else {
-        console.log(`✅ Mesa ${id} guardada`);
+        console.log(`✅ Mesa ${id} guardada en Supabase`);
         updateSyncStatus(true, 'Mesa sincronizada');
       }
     } catch(e){ console.error(e); }
   }
   
   if(newEstado===0) showMesaNotif(id);
+  updateSendButtonState();
 }
  
 // ══════════════════════════════════════════
@@ -1096,33 +1120,58 @@ function updateSendButtonState(){
   const btn = document.getElementById('btnSendOrder');
   const warning = document.getElementById('cartMesaWarning');
   const info = document.getElementById('cartMesaInfo');
+  const clientInfo = document.getElementById('cartClientInfo');
+  const nombreInput = document.getElementById('clientName');
+  const nombre = nombreInput ? nombreInput.value.trim() : '';
   
-  if(hasItems && (!mesaNumero || !mesaNombre)){
+  if(hasItems && (!mesaNumero || !nombre)){
     btn.disabled = true;
     warning.style.display = 'flex';
     info.style.display = 'none';
-  } else if(hasItems && mesaNumero && mesaNombre){
-    btn.disabled = false;
-    warning.style.display = 'none';
-    info.style.display = 'flex';
-    document.getElementById('cartMesaLabel').textContent = `Mesa ${mesaNumero} - ${mesaNombre}`;
+    clientInfo.style.display = 'none';
+  } else if(hasItems && mesaNumero && nombre){
+    // Validar que la mesa esté LIBRE (habilitada)
+    const mesaEstado = mesasData[mesaNumero]?.estado;
+    const mesaLibre = mesaEstado === 0;
+    btn.disabled = !mesaLibre;
+    
+    if(!mesaLibre){
+      warning.innerHTML = '⚠️ <span>La Mesa ' + mesaNumero + ' está OCUPADA. Elegí una libre.</span>';
+      warning.style.display = 'flex';
+      info.style.display = 'none';
+      clientInfo.style.display = 'flex';
+      document.getElementById('cartClientLabel').textContent = nombre;
+    } else {
+      warning.style.display = 'none';
+      info.style.display = 'flex';
+      clientInfo.style.display = 'flex';
+      document.getElementById('cartMesaLabel').textContent = `Mesa ${mesaNumero}`;
+      document.getElementById('cartClientLabel').textContent = nombre;
+    }
   } else {
     btn.disabled = false;
     warning.style.display = 'none';
     info.style.display = 'none';
+    clientInfo.style.display = 'none';
   }
 }
  
 function sendOrder(){
-  if(!mesaNumero || !mesaNombre){
-    alert('Por favor selecciona una mesa e ingresa tu nombre');
+  const nombreInput = document.getElementById('clientName');
+  const nombre = nombreInput ? nombreInput.value.trim() : '';
+  
+  if(!nombre){
+    alert('Por favor ingresa tu nombre antes de enviar el pedido.');
+    nombreInput?.focus();
     return;
   }
-  
-  // Validar que la mesa esté habilitada (libre)
-  const mesaActual = mesasData[mesaNumero];
-  if(!mesaActual || mesaActual.estado !== 0) {
-    alert('La mesa seleccionada no está disponible. Por favor selecciona una mesa libre.');
+  if(!mesaNumero){
+    alert('Por favor selecciona una mesa.');
+    return;
+  }
+  // VALIDACIÓN FINAL: La mesa debe estar HABILITADA (libre)
+  if(mesasData[mesaNumero]?.estado !== 0){
+    alert(`La Mesa ${mesaNumero} está actualmente OCUPADA. Por favor selecciona una mesa libre.`);
     return;
   }
   
@@ -1132,15 +1181,23 @@ function sendOrder(){
     return;
   }
   
-  const text = `Hola! 🍽️ Quiero hacer un pedido:\\n\\n${items.map(i=>`${i.qty}x ${i.name} - $${i.price}`).join('\\n')}\\n\\n👤 Cliente: ${mesaNombre}\\n📍 Mesa ${mesaNumero}\\nTotal: $${items.reduce((s,i)=>s+(i.price*i.qty),0)}`;
+  const total = items.reduce((s,i)=>s+(i.price*i.qty),0);
+  const text = `Hola! 🍽️ *Nuevo Pedido Tongoy*:\n\n` +
+               `👤 *Cliente:* ${nombre}\n` +
+               `🪑 *Mesa:* ${mesaNumero}\n\n` +
+               `*Detalle del pedido:*\n${items.map(i=>`• ${i.qty}x ${i.name} - $${(i.price*i.qty).toLocaleString()}`).join('\n')}\n\n` +
+               `💰 *Total: $${total.toLocaleString()}*\n\n` +
+               `¡Gracias!`;
   window.open(`https://wa.me/5493489236010?text=${encodeURIComponent(text)}`);
   
+  // Limpiar estado
   cart = {};
   mesaNumero = null;
-  mesaNombre = '';
-  document.getElementById('mesaCheck').checked = false;
-  document.getElementById('mesaSelectWrap').classList.remove('visible');
-  document.getElementById('mesaName').value = '';
+  if(nombreInput) nombreInput.value = '';
+  const check = document.getElementById('mesaCheck');
+  if(check) check.checked = false;
+  const wrap = document.getElementById('mesaSelectWrap');
+  if(wrap) wrap.classList.remove('visible');
   updateCartUI();
   updateSendButtonState();
 }
@@ -1153,28 +1210,45 @@ function toggleMesa(checked){
   document.getElementById('mesaSelectWrap').classList.toggle('visible', checked);
   if(!checked){
     mesaNumero = null;
-    mesaNombre = '';
     updateMesaBadge();
   }
 }
  
 function initMesaSelector(){
   const select = document.getElementById('mesaNum');
-  select.innerHTML = Array.from({length:TOTAL_MESAS}, (_,i)=>i+1).map(n=>{
+  if(!select) return;
+  
+  const currentValue = select.value;
+  let html = '<option value="">-- Seleccioná mesa --</option>';
+  html += Array.from({length:TOTAL_MESAS}, (_,i)=>i+1).map(n=>{
     const estado = mesasData[n]?.estado||0;
-    const marker = estado===0 ? '🟢' : '🔴';
-    return `<option value="${n}">${marker} Mesa ${n}</option>`;
+    const libre = estado === 0;
+    const marker = libre ? '🟢' : '🔴';
+    const disabled = libre ? '' : 'disabled';
+    const label = libre ? ' (Libre ✓)' : ' (Ocupada)';
+    return `<option value="${n}" ${disabled}>${marker} Mesa ${n}${label}</option>`;
   }).join('');
+  
+  select.innerHTML = html;
+  
+  // Si la mesa seleccionada ahora está ocupada, resetear
+  if(currentValue && mesasData[parseInt(currentValue)]?.estado !== 0){
+    select.value = '';
+    mesaNumero = null;
+    updateMesaBadge();
+  }
 }
  
 function updateMesaBadge(){
-  const num = document.getElementById('mesaNum').value;
-  const name = document.getElementById('mesaName').value.trim();
+  const select = document.getElementById('mesaNum');
+  const num = select ? select.value : '';
   const badge = document.getElementById('mesaBadge');
-  if(mesaNumero && mesaNombre){
+  if(num){
+    mesaNumero = parseInt(num);
     badge.classList.add('visible');
-    document.getElementById('mesaBadgeNum').textContent = `${mesaNumero} - ${mesaNombre}`;
+    document.getElementById('mesaBadgeNum').textContent = mesaNumero;
   } else {
+    mesaNumero = null;
     badge.classList.remove('visible');
   }
   updateSendButtonState();
@@ -1182,11 +1256,13 @@ function updateMesaBadge(){
  
 document.addEventListener('change', (e)=>{
   if(e.target.id==='mesaNum'){
-    mesaNumero = parseInt(e.target.value);
     updateMesaBadge();
-  } else if(e.target.id==='mesaName'){
-    mesaNombre = e.target.value.trim();
-    updateMesaBadge();
+  }
+});
+
+document.addEventListener('input', (e)=>{
+  if(e.target.id==='clientName'){
+    updateSendButtonState();
   }
 });
  
@@ -1219,6 +1295,7 @@ function editMenuPrice(id){
   const newPrice = prompt(`Nuevo precio para "${item.name}":`, item.price);
   if(newPrice && !isNaN(newPrice)){
     item.price = parseInt(newPrice);
+    renderMenu();
     saveMenuData();
   }
 }
@@ -1228,6 +1305,7 @@ function editPromoPrice(id){
   const newPrice = prompt(`Nuevo precio para "${item.name}":`, item.price);
   if(newPrice && !isNaN(newPrice)){
     item.price = parseInt(newPrice);
+    renderPromos();
     savePromosData();
   }
 }
@@ -1239,7 +1317,7 @@ async function saveMenuData(){
       await supabase_client.from('tongoy_menu').upsert(item);
     }
     updateSyncStatus(true, 'Menú guardado');
-    console.log('✅ Menú sincronizado');
+    console.log('✅ Menú sincronizado en todos los dispositivos');
   } catch(e){ console.error(e); }
 }
  
@@ -1250,7 +1328,7 @@ async function savePromosData(){
       await supabase_client.from('tongoy_promos').upsert(item);
     }
     updateSyncStatus(true, 'Promos guardadas');
-    console.log('✅ Promos sincronizadas');
+    console.log('✅ Promos sincronizadas en todos los dispositivos');
   } catch(e){ console.error(e); }
 }
  

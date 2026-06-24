@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,102 +15,104 @@
 
         :root {
             --white: #ffffff;
-            --black: #000000;
+            --black: #0a0a0a;
             --orange: #ff6b35;
             --light-gray: #f5f5f5;
             --gray: #cccccc;
-            --dark-gray: #666666;
-            --overlay: rgba(0, 0, 0, 0.7); /* Dark overlay for readability over moving car background */
-            --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --dark-gray: #777777;
+            --overlay: rgba(0, 0, 0, 0.75); 
+            --transition: 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden; /* Prevent horizontal scroll from car background movement */
+            overflow-x: hidden; 
         }
 
         body {
-            /* ========== MOVING CAR BACKGROUND (PARALLAX LAYER 0) ========== */
-            background: var(--overlay) url('https://image.shutterstock.com/image-photo/moving-car-on-speed-motion-260nw-1076935619.jpg') fixed center center / cover no-repeat;
+            /* Moving subtle background with Detroit Logo */
+            background: var(--overlay) url('DETROI.jpeg') fixed center center / cover no-repeat;
+            background-blend-mode: multiply;
             color: var(--black);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
             font-weight: 400;
             line-height: 1.6;
             font-size: 18px;
-            /* Subtle car movement animation */
-            animation: backgroundMove 60s linear infinite; 
+            animation: backgroundMove 40s linear infinite; 
         }
 
-        /* Define background movement animation */
         @keyframes backgroundMove {
-            0% { background-position: center center; }
-            50% { background-position: 51% center; }
-            100% { background-position: center center; }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Parallax container for main content area to allow subtle background shifts on sections */
         .parallax-container {
             position: relative;
             z-index: 1;
         }
 
-        /* General styles for sections to enable parallax background shift */
+        /* ========== PARALLAX SECTIONS WITH CONTEXTUAL BACKGROUNDS ========== */
         section {
             position: relative;
-            background-color: rgba(255, 255, 255, 0.9); /* Translucent sections to see movement */
-            /* Add subtle background shifts to all major sections for parallax effect */
+            padding: 120px 40px;
+            max-width: 1100px;
+            margin: 40px auto;
+            width: 90%;
+            border-radius: 12px;
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
         }
 
-        /* Set specific shifts for parallax layer effect */
-        .hero { background-position-y: -10vh; }
-        #servicios-lista { background-position-y: -15vh; }
-        #por-que-elegirnos { background-position-y: -20vh; }
-        #contacto { background-position-y: -25vh; }
-        #opiniones { background-position-y: -30vh; }
-
-        /* General spacing for major content sections */
-        section {
-            padding: 120px 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-            width: 100%;
+        /* Contextual backgrounds per section */
+        #servicios-lista { 
+            background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('foto4.jpeg'); 
+        }
+        #por-que-elegirnos { 
+            background-image: linear-gradient(rgba(248,249,250,0.92), rgba(248,249,250,0.92)), url('foto2.jpeg'); 
+        }
+        #contacto { 
+            background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('foto1.jpeg'); 
+        }
+        #opiniones { 
+            background-image: linear-gradient(rgba(248,249,250,0.94), rgba(248,249,250,0.94)), url('foto3.jpeg'); 
+        }
+        #ubicacion { 
+            background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('DETROI.jpeg'); 
         }
 
-        section:nth-child(odd) {
-            background: rgba(255, 255, 255, 0.95);
+        section > * {
+            position: relative;
+            z-index: 2;
         }
 
-        section:nth-child(even) {
-            background: rgba(245, 245, 245, 0.9);
-        }
-
-        /* General title and subtitle formatting */
         .section-title {
-            font-size: 48px;
+            font-size: 44px;
             font-weight: 900;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             text-align: center;
             line-height: 1.1;
             letter-spacing: -1px;
+            color: var(--black);
         }
 
         .section-subtitle {
             font-size: 20px;
             color: var(--dark-gray);
             text-align: center;
-            margin-bottom: 80px;
-            max-width: 600px;
+            margin-bottom: 60px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Buttons styles (general and outline variants) */
+        /* ========== BUTTONS WITH PROFESSIONAL MICROEFFECTS ========== */
         .button {
             display: inline-block;
-            padding: 18px 48px;
+            padding: 16px 40px;
             background: var(--orange);
             color: var(--white);
             border: none;
@@ -120,34 +121,53 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             cursor: pointer;
-            transition: opacity var(--transition);
             min-width: 200px;
             min-height: 48px;
             text-align: center;
-            text-decoration: none; /* In case it's an <a> tag */
+            text-decoration: none;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.35);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .button:hover::before {
+            left: 100%;
         }
 
         .button:hover {
-            opacity: 0.9;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.5);
         }
 
         .button:active {
-            opacity: 0.8;
-        }
-
-        .button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            transform: translateY(1px);
+            box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
         }
 
         .button-outline {
             background: transparent;
             border: 2px solid var(--black);
             color: var(--black);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .button-outline:hover {
-            background: var(--light-gray);
+            background: var(--black);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
 
         /* Form elements styles */
@@ -157,7 +177,7 @@
 
         .form-group label {
             display: block;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -167,35 +187,30 @@
 
         .form-group input,
         .form-group textarea,
-        .form-group select { /* Add select for dropdown */
+        .form-group select { 
             width: 100%;
             padding: 16px;
             border: 1px solid var(--gray);
-            border-radius: 0;
+            border-radius: 4px;
             font-size: 16px;
             font-family: inherit;
             background: var(--white);
             color: var(--black);
-            transition: border-color var(--transition);
+            transition: border-color var(--transition), box-shadow var(--transition);
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 110px;
         }
 
-        .form-group select { /* Styles for select elements */
+        .form-group select { 
             appearance: none;
             -webkit-appearance: none;
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
             background-repeat: no-repeat;
             background-position: right 16px center;
             background-size: 20px;
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: #999999;
         }
 
         .form-group input:focus,
@@ -203,135 +218,234 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--orange);
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15);
         }
 
         /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ========== NAVBAR ========== */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98); /* Less translucent for fixed header */
-            border-bottom: 1px solid var(--light-gray);
-            padding: 16px 40px;
+            top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.95); 
+            border-bottom: 2px solid var(--orange);
+            padding: 10px 40px;
             z-index: 100;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 900;
-            color: var(--black);
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             text-decoration: none;
-            letter-spacing: -1.5px;
-            text-transform: uppercase; /* Ensure name text looks like logo */
+        }
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            transition: transform var(--transition);
+        }
+
+        .logo-container:hover .logo-img {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .nav-right-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             list-style: none;
+            align-items: center;
         }
 
         nav a {
-            color: var(--black);
+            color: var(--white);
             text-decoration: none;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: color var(--transition);
+            transition: color var(--transition), transform var(--transition);
+            position: relative;
         }
 
-        nav a:hover {
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--orange);
+            transition: width var(--transition);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
             color: var(--orange);
+        }
+
+        .lang-switch-btn {
+            background: transparent;
+            border: 2px solid var(--orange);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            gap: 5px;
+            text-transform: uppercase;
+        }
+
+        .lang-switch-btn:hover {
+            background: var(--orange);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .lang-switch-btn span.active-lang {
+            color: var(--orange);
+            background: var(--white);
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: 2px;
         }
 
         /* ========== HERO ========== */
         .hero {
-            min-height: 100vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 120px 40px;
-            margin-top: 60px;
+            margin: 80px auto 20px;
             text-align: center;
-            animation: fadeIn 0.6s ease-out;
-            background-color: transparent !important; /* Hide translucent background to see full background car image and overlay */
+            animation: fadeIn 0.8s ease-out;
+            background: transparent !important; 
+            box-shadow: none;
         }
 
         .hero-content {
-            background-color: rgba(255, 255, 255, 0.9); /* Put text box over transparent hero to keep text readable */
+            background-color: rgba(255, 255, 255, 0.95); 
             padding: 60px;
-            border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            max-width: 850px;
+            border-top: 6px solid var(--orange);
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 900;
             margin-bottom: 20px;
             line-height: 1.1;
             letter-spacing: -2px;
-            text-transform: uppercase; /* Ensure shop name is prominent */
+            text-transform: uppercase;
+            color: var(--black);
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 22px;
             color: var(--dark-gray);
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* ========== NUESTROS SERVICIOS LIST ========== */
-        #servicios-lista {
+        /* ========== SERVICIOS LIST WITH IMAGES ========== */
+        .servicios-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 60px;
-            padding-bottom: 60px;
-        }
-
-        #servicios-lista h2.section-title {
-            grid-column: 1 / -1; /* Title spans full width of grid */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
         .servicio-item {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: transform var(--transition), box-shadow var(--transition);
+            position: relative;
+        }
+
+        .servicio-item:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .servicio-img {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .servicio-item:hover .servicio-img {
+            transform: scale(1.1);
+        }
+
+        .servicio-content {
+            padding: 30px;
             text-align: center;
-            animation: slideUp 0.6s ease-out;
+            position: relative;
+            padding-top: 50px;
         }
 
         .servicio-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 32px;
+            margin-bottom: 15px;
+            margin-top: -60px;
+            background: var(--white);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 3px solid var(--orange);
         }
 
         .servicio-item h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 12px;
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            color: var(--black);
         }
 
         .servicio-item p {
@@ -340,21 +454,28 @@
             line-height: 1.6;
         }
 
-        /* ========== POR QUÉ ELEGIRNOS (DIFFERENTIALS) ========== */
+        /* ========== POR QUÉ ELEGIRNOS ========== */
         .differentials {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 60px;
-            margin-bottom: 60px;
+            gap: 40px;
         }
 
         .differential {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 10px;
             text-align: center;
-            animation: slideUp 0.6s ease-out;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform var(--transition);
+        }
+
+        .differential:hover {
+            transform: scale(1.03);
         }
 
         .differential-icon {
-            font-size: 48px;
+            font-size: 44px;
             margin-bottom: 20px;
         }
 
@@ -369,93 +490,105 @@
         .differential p {
             color: var(--dark-gray);
             font-size: 16px;
-            line-height: 1.6;
         }
 
-        /* ========== OPINIONES DE NUESTROS CLIENTES ========== */
+        /* ========== OPINIONES ========== */
         .opiniones-wrapper {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            gap: 30px;
         }
 
         .opinion-card {
-            background-color: var(--white);
-            padding: 30px;
-            border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            animation: slideUp 0.6s ease-out;
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+            transition: transform var(--transition);
+        }
+
+        .opinion-card:hover {
+            transform: translateY(-5px);
         }
 
         .opinion-stars {
             color: var(--orange);
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 15px;
         }
 
         .opinion-text {
-            color: var(--dark-gray);
+            color: var(--black);
             font-size: 16px;
             font-style: italic;
             margin-bottom: 20px;
+            line-height: 1.7;
         }
 
         .opinion-author {
-            color: var(--black);
+            color: var(--dark-gray);
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* ========== PRE-DIAGNÓSTICO FORM ========== */
+        /* ========== FORM & LOCATION ========== */
         .form-wrapper {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
         }
 
         .form-button {
             width: 100%;
-            margin-top: 32px;
+            margin-top: 20px;
         }
 
-        /* ========== DÓNDE ESTAMOS / LOCATION ========== */
         .location-info {
             text-align: center;
-            max-width: 600px;
-            margin: 60px auto 0;
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
         }
 
         .location-item {
-            margin-bottom: 32px;
+            margin-bottom: 30px;
             font-size: 18px;
         }
 
         .location-item strong {
             display: block;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            color: var(--orange);
         }
 
         .location-item a {
-            color: var(--orange);
+            color: var(--black);
             text-decoration: none;
             font-weight: 600;
+            transition: color var(--transition);
         }
 
         .location-item a:hover {
-            text-decoration: underline;
+            color: var(--orange);
         }
 
         .location-buttons {
             display: flex;
             gap: 16px;
             justify-content: center;
-            margin-top: 48px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
@@ -466,6 +599,7 @@
             padding: 60px 40px;
             text-align: center;
             font-size: 14px;
+            border-top: 4px solid var(--orange);
         }
 
         footer p {
@@ -477,19 +611,19 @@
             font-weight: 700;
         }
 
-        /* Designer signature styles */
         .designer-sig {
             margin-top: 30px;
-            font-size: 12px;
-            color: var(--dark-gray);
+            font-size: 13px;
+            color: #555555;
         }
 
         .designer-sig a {
             color: var(--orange);
             text-decoration: none;
+            font-weight: 600;
         }
 
-        /* ========== FLOATING ACTION BUTTONS (FABS) ========== */
+        /* ========== FLOATING ACTION BUTTONS ========== */
         .fabs-container {
             position: fixed;
             bottom: 30px;
@@ -511,17 +645,17 @@
             justify-content: center;
             font-size: 24px;
             color: var(--white);
-            transition: transform var(--transition), opacity var(--transition);
-            text-decoration: none; /* If it's an <a> tag */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform var(--transition), box-shadow var(--transition);
+            text-decoration: none; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         .fab:hover {
-            transform: scale(1.1);
-            opacity: 0.9;
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* Style specifically for the Instagram fab icon colors */
         #fab_instagram {
             background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
         }
@@ -530,377 +664,339 @@
             background-color: #25D366;
         }
 
-        /* Review and Appointment Fabs use brand colors */
         #fab_review, #fab_appointment {
             background-color: var(--orange);
         }
 
-        /* Review fab uses full brand color, but make outline version subtly orange too */
-        #fab_review .fab-icon, #fab_appointment .fab-icon {
-            color: var(--white);
-        }
-
-        /* Show simple tooltip text on hover over fabs (optional simple JS can improve positioning, this is just for code structure illustration) */
-        .fab:hover::after {
+        .fab::after {
             content: attr(data-tooltip);
             position: absolute;
-            right: 75px; /* Offset from fab left */
-            bottom: 50%; /* Center vertically over fab bottom gap */
-            transform: translateY(50%); /* Center perfectly */
-            background-color: var(--black);
+            right: 75px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            background-color: rgba(10, 10, 10, 0.9);
             color: var(--white);
-            padding: 8px 12px;
+            padding: 6px 12px;
             border-radius: 4px;
             font-size: 12px;
+            font-weight: bold;
             white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition), visibility var(--transition);
+            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .fab:hover::after {
             opacity: 1;
             visibility: visible;
-            transition: opacity var(--transition);
         }
 
         /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             nav {
-                padding: 12px 20px;
-            }
-
-            .nav-links {
-                gap: 20px;
-                font-size: 12px;
-            }
-
-            .hero {
-                padding: 80px 20px;
-                margin-top: 80px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 18px;
-                margin-bottom: 40px;
-            }
-
-            section {
-                padding: 80px 20px;
-            }
-
-            .section-title {
-                font-size: 36px;
-                margin-bottom: 40px;
-            }
-
-            .section-subtitle {
-                font-size: 16px;
-                margin-bottom: 60px;
-            }
-
-            #servicios-lista, .differentials, .opiniones-wrapper {
-                gap: 40px;
-            }
-
-            .location-buttons {
+                padding: 15px 20px;
                 flex-direction: column;
-                gap: 12px;
+                gap: 15px;
             }
-
-            .button, .form-button {
+            .nav-right-wrapper {
                 width: 100%;
-                padding: 16px 32px;
-                min-width: auto;
+                justify-content: space-between;
+                gap: 15px;
             }
+            .nav-links {
+                gap: 15px;
+            }
+            .hero {
+                margin-top: 160px;
+                padding: 40px 20px;
+            }
+            section {
+                padding: 60px 20px;
+                width: 95%;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+        }
 
-            .opinion-card {
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none; 
+            }
+            .nav-right-wrapper {
+                justify-content: center;
+            }
+            .hero-content {
+                padding: 30px 20px;
+            }
+            .form-wrapper {
                 padding: 20px;
             }
-
-            /* Adjust fabs size on mobile if needed */
-            .fab {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-
-            /* Disable FABS text hint on small screens to avoid clutter over form button on mobile view where right margin is small */
-            .fab:hover::after {
+            .fab::after {
                 display: none; 
             }
         }
 
-        @media (max-width: 480px) {
-            nav {
-                flex-direction: column;
-                gap: 12px;
-                padding: 12px 16px;
-            }
-
-            .nav-links {
-                gap: 12px;
-                flex-direction: column;
-            }
-
-            .hero {
-                padding: 60px 16px;
-                margin-top: 120px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            section {
-                padding: 60px 16px;
-            }
-
-            #servicios-lista, .differentials {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .form-wrapper {
-                padding: 0;
-            }
-
-            footer {
-                padding: 40px 16px;
-            }
-        }
-
-        /* ========== SCROLL REVEAL (for active elements) ========== */
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .scroll-reveal.active {
             opacity: 1;
             transform: translateY(0);
-            transition: all 0.6s ease-out;
         }
     </style>
 </head>
 <body>
     <div class="parallax-container">
         <nav>
-            <a href="#" class="logo">Detroit Motor City</a>
-            <ul class="nav-links">
-                <li><a href="#servicios-lista">Servicios</a></li>
-                <li><a href="#por-que-elegirnos">Por Qué Elegirnos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+            <a href="#" class="logo-container">
+                <img src="DETROI.jpeg" alt="Detroit Motor City Logo" class="logo-img">
+                <span class="logo-text">Detroit Motor City</span>
+            </a>
+            <div class="nav-right-wrapper">
+                <ul class="nav-links">
+                    <li><a href="#servicios-lista" data-es="Servicios" data-en="Services">Servicios</a></li>
+                    <li><a href="#por-que-elegirnos" data-es="Por Qué Elegirnos" data-en="Why Choose Us">Por Qué Elegirnos</a></li>
+                    <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+                </ul>
+                <button class="lang-switch-btn" id="lang-toggle" onclick="toggleLanguage()" aria-label="Cambiar Idioma / Switch Language">
+                    <span id="lang-btn-text">EN</span>
+                </button>
+            </div>
         </nav>
 
         <section class="hero">
             <div class="hero-content">
-                <h1>Detroit Motor City. Diagnóstico de Precisión</h1>
-                <p>Tecnología avanzada que tu auto merece. Transparencia total en cada análisis.</p>
-                <button class="button" onclick="scrollToSection('#contacto')">Diagnosticar Ahora</button>
+                <h1 data-es="Detroit Motor City. Diagnóstico de Precisión" data-en="Detroit Motor City. Precision Diagnosis">Detroit Motor City. Diagnóstico de Precisión</h1>
+                <p data-es="Tecnología avanzada que tu auto merece. Transparencia total en cada análisis." data-en="Advanced technology your car deserves. Total transparency in every analysis.">Tecnología avanzada que tu auto merece. Transparencia total en cada análisis.</p>
+                <button class="button" onclick="scrollToSection('#contacto')" data-es="Diagnosticar Ahora" data-en="Diagnose Now">Diagnosticar Ahora</button>
             </div>
         </section>
 
         <section id="servicios-lista">
-            <h2 class="section-title scroll-reveal">NUESTROS SERVICIOS</h2>
+            <h2 class="section-title scroll-reveal" data-es="NUESTROS SERVICIOS" data-en="OUR SERVICES">NUESTROS SERVICIOS</h2>
             
-            <div class="servicio-item scroll-reveal">
-                <div class="servicio-icon">⛽</div>
-                <h3>INYECCION ELECTRONICA NAFTA/DIESEL</h3>
-                <p>Análisis especializado para sistemas de inyección modernos.</p>
-            </div>
+            <div class="servicios-grid">
+                <div class="servicio-item scroll-reveal">
+                    <div class="servicio-img" style="background-image: url('foto4.jpeg');"></div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">⛽</div>
+                        <h3 data-es="INYECCION ELECTRONICA NAFTA/DIESEL" data-en="GASOLINE/DIESEL ELECTRONIC INJECTION">INYECCION ELECTRONICA NAFTA/DIESEL</h3>
+                        <p data-es="Análisis especializado para sistemas de inyección modernos." data-en="Specialized analysis for modern fuel injection systems.">Análisis especializado para sistemas de inyección modernos.</p>
+                    </div>
+                </div>
 
-            <div class="servicio-item scroll-reveal">
-                <div class="servicio-icon">🛋️</div>
-                <h3>SEGURIDAD Y CONFORT</h3>
-                <p>Diagnóstico de sistemas de confort (climatización, asientos) y seguridad activa/pasiva.</p>
-            </div>
+                <div class="servicio-item scroll-reveal">
+                    <div class="servicio-img" style="background-image: url('foto1.jpeg');"></div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">🛋️</div>
+                        <h3 data-es="SEGURIDAD Y CONFORT" data-en="SAFETY & COMFORT">SEGURIDAD Y CONFORT</h3>
+                        <p data-es="Diagnóstico de sistemas de confort (climatización, asientos) y seguridad activa/pasiva." data-en="Diagnosis of comfort systems (climate control, electronic seating) and active/passive safety features.">Diagnóstico de sistemas de confort (climatización, asientos) y seguridad activa/pasiva.</p>
+                    </div>
+                </div>
 
-            <div class="servicio-item scroll-reveal">
-                <div class="servicio-icon">💻</div>
-                <h3>SCANNER</h3>
-                <p>Lectura y borrado de códigos de falla con equipos de última generación.</p>
-            </div>
+                <div class="servicio-item scroll-reveal">
+                    <div class="servicio-img" style="background-image: url('foto3.jpeg');"></div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">💻</div>
+                        <h3 data-es="SCANNER" data-en="SCANNER DIAGNOSTICS">SCANNER</h3>
+                        <p data-es="Lectura y borrado de códigos de falla con equipos de última generación." data-en="Fault code scanning, readout, and error clearing with state-of-the-art diagnostic platforms.">Lectura y borrado de códigos de falla con equipos de última generación.</p>
+                    </div>
+                </div>
 
-            <div class="servicio-item scroll-reveal">
-                <div class="servicio-icon">📊</div>
-                <h3>DIAGNOSTICO COMPUTABILIZADO</h3>
-                <p>Análisis integral de todos los módulos electrónicos del vehículo.</p>
-            </div>
+                <div class="servicio-item scroll-reveal">
+                    <div class="servicio-img" style="background-image: url('foto2.jpeg');"></div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">📊</div>
+                        <h3 data-es="DIAGNOSTICO COMPUTABILIZADO" data-en="COMPUTERIZED DIAGNOSIS">DIAGNOSTICO COMPUTABILIZADO</h3>
+                        <p data-es="Análisis integral de todos los módulos electrónicos del vehículo." data-en="Comprehensive telemetry and checkups across all vehicle electronic modules.">Análisis integral de todos los módulos electrónicos del vehículo.</p>
+                    </div>
+                </div>
 
-            <div class="servicio-item scroll-reveal">
-                <div class="servicio-icon">🔧</div>
-                <h3>DISTRIBUCION</h3>
-                <p>Servicio preventivo y correctivo para sistemas de distribución por correa o cadena.</p>
-            </div>
+                <div class="servicio-item scroll-reveal">
+                    <div class="servicio-img" style="background-image: url('foto4.jpeg');"></div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">🔧</div>
+                        <h3 data-es="DISTRIBUCION" data-en="TIMING SYSTEM">DISTRIBUCION</h3>
+                        <p data-es="Servicio preventivo y correctivo para sistemas de distribución por correa o cadena." data-en="Preventive maintenance and correction for timing belts, chains, and structural gear.">Servicio preventivo y correctivo para sistemas de distribución por correa o cadena.</p>
+                    </div>
+                </div>
 
-            <div class="servicio-item scroll-reveal">
-                <div class="servicio-icon">🛠️</div>
-                <h3>TAPA DE CILINDROS</h3>
-                <p>Revisión y reparación de culatas para un rendimiento óptimo del motor.</p>
+                <div class="servicio-item scroll-reveal">
+                    <div class="servicio-img" style="background-image: url('foto3.jpeg');"></div>
+                    <div class="servicio-content">
+                        <div class="servicio-icon">🛠️</div>
+                        <h3 data-es="TAPA DE CILINDROS" data-en="CYLINDER HEAD SERVICE">TAPA DE CILINDROS</h3>
+                        <p data-es="Revisión y reparación de culatas para un rendimiento óptimo del motor." data-en="Overhaul, testing, and rebuilds of engine cylinder heads for high performance.">Revisión y reparación de culatas para un rendimiento óptimo del motor.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="por-que-elegirnos">
-            <h2 class="section-title scroll-reveal">¿Por Qué Elegirnos?</h2>
+            <h2 class="section-title scroll-reveal" data-es="¿Por Qué Elegirnos?" data-en="Why Choose Us?">¿Por Qué Elegirnos?</h2>
             
             <div class="differentials">
                 <div class="differential scroll-reveal">
                     <div class="differential-icon">⚡</div>
-                    <h3>Rápido</h3>
-                    <p>Diagnóstico en minutos, no horas. Tecnología computarizada de última generación.</p>
+                    <h3 data-es="Rápido" data-en="Fast">Rápido</h3>
+                    <p data-es="Diagnóstico en minutos, no horas. Tecnología computarizada de última generación." data-en="Diagnosis ready in minutes, not hours. Advanced diagnostic technology.">Diagnóstico en minutos, no horas. Tecnología computarizada de última generación.</p>
                 </div>
 
                 <div class="differential scroll-reveal">
                     <div class="differential-icon">🎯</div>
-                    <h3>Preciso</h3>
-                    <p>Identificación exacta de fallas. Equipo especializado y certificado.</p>
+                    <h3 data-es="Preciso" data-en="Precise">Preciso</h3>
+                    <p data-es="Identificación exacta de fallas. Equipo especializado y certificado." data-en="Exact root-cause mechanical and electrical fault tracing. Certified team.">Identificación exacta de fallas. Equipo especializado y certificado.</p>
                 </div>
 
                 <div class="differential scroll-reveal">
                     <div class="differential-icon">✓</div>
-                    <h3>Claro</h3>
-                    <p>Explicación transparente. Presupuesto sin sorpresas. Garantía en reparaciones.</p>
+                    <h3 data-es="Claro" data-en="Transparent">Claro</h3>
+                    <p data-es="Explicación transparente. Presupuesto sin sorpresas. Garantía en reparaciones." data-en="Clear, honest insights. Transparent quotes and guaranteed results.">Explicación transparente. Presupuesto sin sorpresas. Garantía en reparaciones.</p>
                 </div>
             </div>
         </section>
 
         <section id="contacto">
-            <h2 class="section-title scroll-reveal">Pre-Diagnóstico Online</h2>
-            <p class="section-subtitle scroll-reveal">Cuéntanos sobre tu vehículo. Te contactaremos en minutos.</p>
+            <h2 class="section-title scroll-reveal" data-es="Pre-Diagnóstico Online" data-en="Online Pre-Diagnosis">Pre-Diagnóstico Online</h2>
+            <p class="section-subtitle scroll-reveal" data-es="Cuéntanos sobre tu vehículo. Te contactaremos en minutos." data-en="Provide vehicle insights. We will get in touch shortly.">Cuéntanos sobre tu vehículo. Te contactaremos en minutos.</p>
             
             <form class="form-wrapper scroll-reveal" id="form-diagnostico">
                 <div class="form-group">
-                    <label for="marca">Marca y Modelo</label>
+                    <label for="marca" data-es="Marca y Modelo" data-en="Make and Model">Marca y Modelo</label>
                     <input type="text" id="marca" name="marca" placeholder="Ej: Toyota Corolla 2020" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="fallas_menu">Tipo de Falla Posible (opcional)</label>
+                    <label for="fallas_menu" data-es="Tipo de Falla Posible (opcional)" data-en="Possible Fault Type (optional)">Tipo de Falla Posible (opcional)</label>
                     <select id="fallas_menu" name="fallas">
-                        <option value="">Selecciona una opción...</option>
-                        <optgroup label="Fallas Mecánicas">
-                            <option value="Distribución">Distribución</option>
-                            <option value="Tapa de cilindros">Tapa de cilindros</option>
+                        <option value="" data-es="Selecciona una opción..." data-en="Select an option...">Selecciona una opción...</option>
+                        <optgroup label="Fallas Mecánicas" data-es="Fallas Mecánicas" data-en="Mechanical Faults">
+                            <option value="Distribución">Distribución / Timing System</option>
+                            <option value="Tapa de cilindros">Tapa de cilindros / Cylinder Head</option>
                         </optgroup>
-                        <optgroup label="Fallas Eléctricas">
-                            <option value="Batería descargada o defectuosa">Batería descargada o defectuosa</option>
-                            <option value="Alternador sin carga o con voltaje irregular">Alternador sin carga o con voltaje irregular</option>
-                            <option value="Fusibles quemados">Fusibles quemados</option>
-                            <option value="Relés defectuosos">Relés defectuosos</option>
-                            <option value="Cortocircuito en cableado">Cortocircuito en cableado</option>
-                            <option value="Conectores sulfatados o flojos">Conectores sulfatados o flojos</option>
-                            <option value="Falla en masa o tierra del sistema">Falla en masa o tierra del sistema</option>
-                            <option value="Motor de arranque con consumo excesivo">Motor de arranque con consumo excesivo</option>
-                            <option value="Falla en luces (alta/baja/intermitentes)">Falla en luces (alta/baja/intermitentes)</option>
-                            <option value="Sensor de temperatura sin señal">Sensor de temperatura sin señal</option>
-                            <option value="Falla en bobina de encendido">Falla en bobina de encendido</option>
-                            <option value="Cable de bujía dañado">Cable de bujía dañado</option>
-                            <option value="Falla en sistema de carga (regulador de voltaje)">Falla en sistema de carga (regulador de voltaje)</option>
+                        <optgroup label="Fallas Eléctricas" data-es="Fallas Eléctricas" data-en="Electrical Faults">
+                            <option value="Batería descargada o defectuosa">Batería descargada o defectuosa / Dead or faulty battery</option>
+                            <option value="Alternador sin carga o con voltaje irregular">Alternador sin carga o con voltaje irregular / Alternator failure</option>
+                            <option value="Fusibles quemados">Fusibles quemados / Blown fuses</option>
+                            <option value="Relés defectuosos">Relés defectuosos / Faulty relays</option>
+                            <option value="Cortocircuito en cableado">Cortocircuito en cableado / Short circuit in wiring</option>
+                            <option value="Conectores sulfatados o flojos">Conectores sulfatados o flojos / Loose or corroded connectors</option>
+                            <option value="Falla en masa o tierra del sistema">Falla en masa o tierra del sistema / System ground fault</option>
+                            <option value="Motor de arranque con consumo excesivo">Motor de arranque con consumo excesivo / High starter power draw</option>
+                            <option value="Falla en luces (alta/baja/intermitentes)">Falla en luces (alta/baja/intermitentes) / Light failure</option>
+                            <option value="Sensor de temperatura sin señal">Sensor de temperatura sin señal / No signal from temp sensor</option>
+                            <option value="Falla en bobina de encendido">Falla en bobina de encendido / Ignition coil failure</option>
+                            <option value="Cable de bujía dañado">Cable de bujía dañado / Damaged spark plug wire</option>
+                            <option value="Falla en sistema de carga (regulador de voltaje)">Falla en sistema de carga / Charging system failure</option>
                         </optgroup>
-                        <optgroup label="Fallas de Computadora / Scanner">
-                            <option value="Error de comunicación ECU–scanner">Error de comunicación ECU–scanner</option>
-                            <option value="Código DTC no reconocido">Código DTC no reconocido</option>
-                            <option value="Falla en sensor MAP/MAS">Falla en sensor MAP/MAS</option>
-                            <option value="Falla en sensor TPS (posición de acelerador)">Falla en sensor TPS (posición de acelerador)</option>
-                            <option value="Falla en sensor de oxígeno (lambda)">Falla en sensor de oxígeno (lambda)</option>
-                            <option value="Falla en sensor de cigüeñal o árbol de levas">Falla en sensor de cigüeñal o árbol de levas</option>
-                            <option value="Error en módulo ABS o airbag">Error en módulo ABS o airbag</option>
-                            <option value="Falla en módulo BSI o BCM">Falla en módulo BSI o BCM</option>
-                            <option value="Error de software en ECU">Error de software en ECU</option>
-                            <option value="Falla en red CAN (comunicación entre módulos)">Falla en red CAN (comunicación entre módulos)</option>
-                            <option value="Señal intermitente de sensor de velocidad">Señal intermitente de sensor de velocidad</option>
-                            <option value="Falla en actuadores (inyectores, válvula EGR, solenoides)">Falla en actuadores (inyectores, válvula EGR, solenoides)</option>
-                            <option value="Error de calibración o actualización pendiente">Error de calibración o actualización pendiente</option>
-                            <option value="Falla en sistema de inmovilizador o llave codificada">Falla en sistema de inmovilizador o llave codificada</option>
+                        <optgroup label="Fallas de Computadora / Scanner" data-es="Fallas de Computadora / Scanner" data-en="Computer & Scanner Faults">
+                            <option value="Error de comunicación ECU–scanner">Error de comunicación ECU–scanner / ECU-scanner link error</option>
+                            <option value="Código DTC no reconocido">Código DTC no reconocido / Unrecognized DTC code</option>
+                            <option value="Falla en sensor MAP/MAS">Falla en sensor MAP/MAS / MAP/MAS sensor fault</option>
+                            <option value="Falla en sensor TPS (posición de acelerador)">Falla en sensor TPS / TPS position sensor fault</option>
+                            <option value="Falla en sensor de oxígeno (lambda)">Falla en sensor de oxígeno / Oxygen lambda sensor fault</option>
+                            <option value="Falla en sensor de cigüeñal o árbol de levas">Falla en sensor de cigüeñal / Crank or camshaft sensor fault</option>
+                            <option value="Error en módulo ABS o airbag">Error en módulo ABS o airbag / ABS or Airbag module error</option>
+                            <option value="Falla en módulo BSI o BCM">Falla en módulo BSI o BCM / BSI or BCM module failure</option>
+                            <option value="Error de software en ECU">Error de software en ECU / ECU software glitch</option>
+                            <option value="Falla en red CAN (comunicación entre módulos)">Falla en red CAN / CAN bus communication fault</option>
+                            <option value="Señal intermitente de sensor de velocidad">Señal intermitente de velocidad / Intermittent speed signal</option>
+                            <option value="Falla en actuadores (inyectores, válvula EGR, solenoides)">Falla en actuadores / Actuator failure</option>
+                            <option value="Error de calibración o actualización pendiente">Error de calibración / Pending calibration or update</option>
+                            <option value="Falla en sistema de inmovilizador o llave codificada">Falla en inmovilizador / Immobilizer key failure</option>
                         </optgroup>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="problema">Describe el Problema</label>
+                    <label for="problema" data-es="Describe el Problema" data-en="Describe the Issue">Describe el Problema</label>
                     <textarea id="problema" name="problema" placeholder="Ruidos, vibraciones, advertencias en el tablero..." required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="nombre">Tu Nombre</label>
+                    <label for="nombre" data-es="Tu Nombre" data-en="Your Name">Tu Nombre</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="whatsapp">Tu WhatsApp</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Número con código de país" pattern="[0-9\+\s\-\(\)]+" required>
+                    <label for="email" data-es="E-Mail (Opcional)" data-en="E-Mail (Optional)">E-Mail (Opcional)</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
                 </div>
 
-                <button type="submit" class="button form-button">Enviar Diagnóstico</button>
+                <button type="submit" class="button form-button" data-es="Enviar Diagnóstico" data-en="Submit Diagnosis">Enviar Diagnóstico</button>
             </form>
         </section>
 
         <section id="opiniones">
-            <h2 class="section-title scroll-reveal">OPINIONES DE NUESTROS CLIENTES</h2>
+            <h2 class="section-title scroll-reveal" data-es="OPINIONES DE NUESTROS CLIENTES" data-en="CLIENT REVIEWS">OPINIONES DE NUESTROS CLIENTES</h2>
             
             <div class="opiniones-wrapper scroll-reveal">
                 <div class="opinion-card">
                     <div class="opinion-stars">★★★★★</div>
-                    <p class="opinion-text">"¡Excelente servicio en Detroit Motor City! Me diagnosticaron un problema que en otros talleres no encontraban."</p>
+                    <p class="opinion-text" data-es="&ldquo;¡Excelente servicio en Detroit Motor City! Me diagnosticaron un problema que en otros talleres no encontraban.&rdquo;" data-en="&ldquo;Excellent service at Detroit Motor City! They tracked down an electrical bug that other garages spent days looking for.&rdquo;">"¡Excelente servicio en Detroit Motor City! Me diagnosticaron un problema que en otros talleres no encontraban."</p>
                     <p class="opinion-author">JUAN PÉREZ, LA FALDA</p>
                 </div>
 
                 <div class="opinion-card">
                     <div class="opinion-stars">★★★★★</div>
-                    <p class="opinion-text">"Son los mejores en La Falda. Atención clara, honesta y rápida. Confío mi auto solo a Detroit Motor City."</p>
+                    <p class="opinion-text" data-es="&ldquo;Son los mejores en La Falda. Atención clara, honesta y rápida. Confío mi auto solo a Detroit Motor City.&rdquo;" data-en="&ldquo;The absolute best in La Falda. Clear communication, fast turnaround. I only trust Detroit Motor City with my electronics.&rdquo;">"Son los mejores en La Falda. Atención clara, honesta y rápida. Confío mi auto solo a Detroit Motor City."</p>
                     <p class="opinion-author">MARÍA RODRÍGUEZ, CÓRDOBA</p>
                 </div>
 
                 <div class="opinion-card">
                     <div class="opinion-stars">★★★★★</div>
-                    <p class="opinion-text">"Detroit Motor City me solucionó un problema eléctrico de la computadora en tiempo récord. ¡Super recomendables!"</p>
+                    <p class="opinion-text" data-es="&ldquo;Detroit Motor City me solucionó un problema eléctrico de la computadora en tiempo récord. ¡Super recomendables!&rdquo;" data-en="&ldquo;Detroit Motor City resolved a complex ECU software breakdown in record time. Highly recommended!&rdquo;">"Detroit Motor City me solucionó un problema eléctrico de la computadora en tiempo récord. ¡Super recomendables!"</p>
                     <p class="opinion-author">CARLOS LÓPEZ, LA FALDA</p>
                 </div>
             </div>
         </section>
 
         <section id="ubicacion">
-            <h2 class="section-title scroll-reveal">Dónde Estamos</h2>
+            <h2 class="section-title scroll-reveal" data-es="Dónde Estamos" data-en="Our Location">Dónde Estamos</h2>
             
             <div class="location-info scroll-reveal">
                 <div class="location-item">
-                    <strong>Dirección</strong>
+                    <strong data-es="Dirección" data-en="Address">Dirección</strong>
                     Av. Buenos Aires 1071, X5172 La Falda, Córdoba
                 </div>
 
                 <div class="location-item">
-                    <strong>WhatsApp</strong>
-                    <a href="https://wa.me/03548606804" target="_blank" rel="noopener noreferrer">0354 860 6804</a>
+                    <strong data-es="WhatsApp Directo" data-en="Direct WhatsApp">WhatsApp Directo</strong>
+                    <a href="https://wa.me/543548606804" target="_blank" rel="noopener noreferrer">0354 860 6804</a>
                 </div>
 
                 <div class="location-item">
-                    <strong>E-Mail</strong>
+                    <strong data-es="E-Mail Oficial" data-en="Official E-Mail">E-Mail Oficial</strong>
                     <a href="mailto:ie.detroit8477@mail.com">ie.detroit8477@mail.com</a>
                 </div>
 
                 <div class="location-item">
-                    <strong>Horarios</strong>
-                    Lunes a viernes de 09:00 a 20:00 hs, sábado y domingo cerrado.
+                    <strong data-es="Horarios de Atención" data-en="Business Hours">Horarios de Atención</strong>
+                    <span data-es="Lunes a viernes de 09:00 a 20:00 hs, sábado y domingo cerrado." data-en="Monday to Friday from 09:00 to 20:00, Saturday & Sunday closed.">Lunes a viernes de 09:00 a 20:00 hs, sábado y domingo cerrado.</span>
                 </div>
 
                 <div class="location-buttons">
-                    <a href="https://wa.me/03548606804" class="button" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp</a>
-                    <a href="https://maps.app.goo.gl/dHh615LvSqSRr3dNA" class="button button-outline" target="_blank" rel="noopener noreferrer">Ver en Maps</a>
+                    <a href="https://wa.me/543548606804" class="button" target="_blank" rel="noopener noreferrer" data-es="Contactar por WhatsApp" data-en="Message on WhatsApp">Contactar por WhatsApp</a>
+                    <a href="https://maps.app.goo.gl/5mUfreXKpzJXMRwK9" class="button button-outline" target="_blank" rel="noopener noreferrer" data-es="Ver en Maps" data-en="Open Maps">Ver en Maps</a>
                 </div>
             </div>
         </section>
-    </div> <div class="fabs-container">
-        <a href="https://maps.app.goo.gl/5mUfreXKpzJXMRwK9" class="fab" id="fab_review" target="_blank" rel="noopener noreferrer" data-tooltip="Reseñas">
+    </div>
+
+    <div class="fabs-container">
+        <a href="https://maps.app.goo.gl/5mUfreXKpzJXMRwK9" class="fab" id="fab_review" target="_blank" rel="noopener noreferrer" data-tooltip="Reseñas / Reviews">
             <span class="fab-icon">⭐</span>
         </a>
-        <a href="https://wa.me/03548606804" class="fab" id="fab_whatsapp" target="_blank" rel="noopener noreferrer" data-tooltip="WhatsApp">
+        <a href="https://wa.me/543548606804" class="fab" id="fab_whatsapp" target="_blank" rel="noopener noreferrer" data-tooltip="WhatsApp">
             <span class="fab-icon">💬</span>
         </a>
-        <button class="fab" id="fab_appointment" onclick="scrollToSection('#contacto')" data-tooltip="Pedido de Turno">
+        <button class="fab" id="fab_appointment" onclick="scrollToSection('#contacto')" data-tooltip="Pedir Turno / Appointment">
             <span class="fab-icon">📅</span>
         </button>
         <a href="https://www.instagram.com/detroitmotorcity1/" class="fab" id="fab_instagram" target="_blank" rel="noopener noreferrer" data-tooltip="Instagram">
@@ -909,62 +1005,98 @@
     </div>
 
     <footer>
-        <p>© 2024 Detroit Motor City - Todos los derechos reservados</p>
-        <p>Diagnóstico <span class="highlight">Automotriz Premium en La Falda</span></p>
-        <div class="designer-sig">Diseño por <a href="https://nexoar-art.github.io/NEXO-art/" target="_blank" rel="noopener noreferrer">NEXO-ART</a></div>
+        <p>© 2026 Detroit Motor City - <span data-es="Todos los derechos reservados" data-en="All rights reserved">Todos los derechos reservados</span></p>
+        <p><span data-es="Laboratorio Técnico de Vanguardia e Inyección en La Falda" data-en="Cutting Edge Electronics & Injection Lab in La Falda">Laboratorio Técnico de Vanguardia e Inyección en La Falda</span></p>
+        <div class="designer-sig">Diseño por / Designed by <a href="https://nexoar-art.github.io/NEXO-art/" target="_blank" rel="noopener noreferrer">NEXO-ART</a></div>
     </footer>
 
     <script>
-        // ========== CONFIGURACIÓN ==========
-        // Main WhatsApp for form submission and fabs link should be the provided one
         const CONFIG = {
-            whatsappPhone: '03548606804' 
+            whatsappPhone: '543548606804',
+            currentLang: 'es'
         };
 
-        // ========== SCROLL REVEALS & ACTIVE LINK TRACKING ==========
+        const TRANSLATIONS = {
+            en: {
+                placeholder_marca: "E.g.: Toyota Corolla 2020",
+                placeholder_problema: "Strange sounds, vibrations, dashboard indicator codes...",
+                placeholder_nombre: "Full name",
+                placeholder_email: "name@example.com",
+                toast_success: "¡Pre-Diagnosis details prepared! Redirecting to WhatsApp...",
+                toggle_btn: "ES"
+            },
+            es: {
+                placeholder_marca: "Ej: Toyota Corolla 2020",
+                placeholder_problema: "Ruidos, vibraciones, advertencias en el tablero...",
+                placeholder_nombre: "Nombre completo",
+                placeholder_email: "ejemplo@correo.com",
+                toast_success: "¡Datos de pre-diagnóstico listos! Redirigiendo a WhatsApp...",
+                toggle_btn: "EN"
+            }
+        };
+
+        function toggleLanguage() {
+            CONFIG.currentLang = CONFIG.currentLang === 'es' ? 'en' : 'es';
+            
+            document.querySelectorAll('[data-es]').forEach(element => {
+                const text = element.getAttribute(`data-${CONFIG.currentLang}`);
+                if (text) {
+                    if (element.tagName === 'OPTGROUP' || element.tagName === 'OPTION') {
+                        if (element.tagName === 'OPTGROUP') {
+                            element.label = text;
+                        } else {
+                            element.textContent = text;
+                        }
+                    } else {
+                        element.innerHTML = text;
+                    }
+                }
+            });
+
+            const t = TRANSLATIONS[CONFIG.currentLang];
+            document.getElementById('marca').placeholder = t.placeholder_marca;
+            document.getElementById('problema').placeholder = t.placeholder_problema;
+            document.getElementById('nombre').placeholder = t.placeholder_nombre;
+            document.getElementById('email').placeholder = t.placeholder_email;
+            
+            document.getElementById('lang-btn-text').textContent = t.toggle_btn;
+        }
+
         function initScrollEffects() {
             const reveals = document.querySelectorAll('.scroll-reveal');
             const navLinks = document.querySelectorAll('.nav-links a');
-            const sections = document.querySelectorAll('section[id]');
+            const sections = document.querySelectorAll('section[ID]');
 
             const observerOptions = {
                 threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                rootMargin: '0px 0px -40px 0px'
             };
 
-            // Scroll Reveal Observer
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        // No need to unobserve if we want them to re-active if scrolled back, but active: 0.6s means once active, it fades in once.
                         revealObserver.unobserve(entry.target); 
                     }
                 });
             }, observerOptions);
 
-            reveals.forEach((element) => {
-                revealObserver.observe(element);
-            });
+            reveals.forEach(element => revealObserver.observe(element));
 
-            // Active Nav Link Observer
             const activeNavObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
-                        navLinks.forEach((link) => link.classList.remove('active')); // Reset all
+                        navLinks.forEach(link => link.classList.remove('active'));
                         const activeLink = document.querySelector(`.nav-links a[href="#${id}"]`);
                         if (activeLink) activeLink.classList.add('active');
                     }
                 });
-            }, { ...observerOptions, threshold: 0.5 }); // More threshold to mark the current visible section
+            }, { ...observerOptions, threshold: 0.4 });
 
-            sections.forEach((section) => {
-                activeNavObserver.observe(section);
-            });
+            sections.forEach(section => activeNavObserver.observe(section));
         }
 
-        // ========== FORM SUBMISSION ==========
         function initForm() {
             const form = document.getElementById('form-diagnostico');
             if (!form) return;
@@ -974,39 +1106,43 @@
 
                 const marca = document.getElementById('marca')?.value?.trim();
                 const faultDropdown = document.getElementById('fallas_menu');
-                const problemaPossible = faultDropdown?.value; // Selected fault name
+                const selectedFault = faultDropdown?.value; 
                 const problemaDesc = document.getElementById('problema')?.value?.trim();
                 const nombre = document.getElementById('nombre')?.value?.trim();
-                const whatsapp = document.getElementById('whatsapp')?.value?.trim();
+                const email = document.getElementById('email')?.value?.trim() || (CONFIG.currentLang === 'es' ? 'No proporcionado' : 'Not provided');
 
-                // Validación simple
-                if (!marca || !problemaDesc || !nombre || !whatsapp) {
-                    alert('Por favor completa todos los campos obligatorios.');
+                if (!marca || !problemaDesc || !nombre) {
+                    alert(CONFIG.currentLang === 'es' ? 'Por favor completa los campos obligatorios.' : 'Please complete all required fields.');
                     return;
                 }
 
-                // Construct message including both dropdown selection and textarea description
-                let message = `🚗 *Solicitud de Diagnóstico desde Web*\n\n👤 Nombre: ${nombre}\n📱 WhatsApp: ${whatsapp}\n🚗 Vehículo: ${marca}\n⚠️ Diagnóstico detallado:\n`;
-                if (problemaPossible) {
-                    message += `*Falla seleccionada en menú:* ${problemaPossible}\n`;
+                let message = `🚀 *NUEVO PRE-DIAGNÓSTICO AUTOMOTRIZ* 🚀\n`;
+                message += `===================================\n\n`;
+                message += `📋 *DATOS DE CONTACTO:*\n`;
+                message += `👤 *Nombre:* ${nombre}\n`;
+                message += `📧 *E-Mail:* ${email}\n\n`;
+                message += `🚗 *INFORMACIÓN DEL VEHÍCULO:*\n`;
+                message += `🚘 *Marca y Modelo:* ${marca}\n\n`;
+                message += `🛠️ *REPORTE DE FALLAS:*\n`;
+                if (selectedFault) {
+                    message += `🔍 *Categoría de Falla:* ${selectedFault}\n`;
                 }
-                message += `*Descripción del problema:* ${problemaDesc}`;
+                message += `📝 *Detalles del Síntoma:* ${problemaDesc}\n\n`;
+                message += `===================================\n`;
+                message += `📅 _Mensaje enviado desde la Plataforma Web de Detroit Motor City._`;
 
-                // Send via WhatsApp
                 const url = `https://api.whatsapp.com/send?phone=${CONFIG.whatsappPhone}&text=${encodeURIComponent(message)}`;
                 window.open(url, '_blank', 'noopener,noreferrer');
 
                 form.reset();
-                showToast('¡Diagnóstico enviado! Te contactaremos pronto.');
+                showToast(TRANSLATIONS[CONFIG.currentLang].toast_success);
             });
         }
 
-        // ========== SCROLL TO SECTION (Smooth scroll handled by CSS, this just calculates target) ==========
         function scrollToSection(selector) {
             const element = document.querySelector(selector);
             if (element) {
-                // Adjust for navbar height
-                const offset = element.offsetTop - 70; // Basic navbar height offset
+                const offset = element.offsetTop - 90; 
                 window.scrollTo({
                     top: offset,
                     behavior: 'smooth'
@@ -1014,22 +1150,22 @@
             }
         }
 
-        // ========== TOAST NOTIFICATION ==========
         function showToast(message) {
             const toast = document.createElement('div');
             toast.style.cssText = `
                 position: fixed;
-                bottom: 110px; /* Offset from FABs */
+                bottom: 110px;
                 right: 30px;
-                background: #000;
-                color: white;
+                background: var(--black);
+                color: var(--white);
+                border-left: 4px solid var(--orange);
                 padding: 16px 24px;
                 border-radius: 4px;
                 font-size: 14px;
                 font-weight: 600;
                 z-index: 10000;
                 animation: slideUp 0.3s ease;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             `;
             toast.textContent = message;
             document.body.appendChild(toast);
@@ -1038,20 +1174,13 @@
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s ease';
                 setTimeout(() => toast.remove(), 300);
-            }, 2500);
+            }, 3000);
         }
 
-        // ========== INICIALIZACIÓN ==========
         document.addEventListener('DOMContentLoaded', () => {
             initScrollEffects();
             initForm();
         });
-
-        // ========== ERROR HANDLING (Basic placeholder as requested) ==========
-        window.addEventListener('error', (event) => {
-            console.error('Error no manejado detectado:', event.error);
-        });
     </script>
 </body>
 </html>
-

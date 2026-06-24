@@ -421,33 +421,15 @@
             border-top: 6px solid var(--orange);
             position: relative;
             overflow: hidden;
-            /* Imagen de fondo que se revelará */
-            background-image: url('FOTOTARJENTA.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: background-color 1.5s ease;
+            /* Transición para desaparecer la tarjeta completa */
+            transition: opacity 1.5s ease, transform 1.5s ease;
         }
 
-        /* Overlay blanco que se desvanece para revelar la imagen */
-        .hero-content::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            z-index: 1;
-            transition: opacity 1.5s ease;
-            border-radius: 12px;
-        }
-
-        .hero-content.revealed::before {
+        /* Clase para hacer desaparecer toda la tarjeta */
+        .hero-content.card-hidden {
             opacity: 0;
+            transform: scale(0.95) translateY(-30px);
             pointer-events: none;
-        }
-
-        .hero-content > * {
-            position: relative;
-            z-index: 2;
         }
 
         .hero h1 {
@@ -1176,22 +1158,18 @@
         /* ========== STATUS INDICATOR (ABIERTO/CERRADO) ========== */
         function updateStatusIndicator() {
             const now = new Date();
-            // Usamos la hora local del usuario (Argentina - La Falda, Córdoba)
             const day = now.getDay(); // 0 = Domingo, 1 = Lunes ... 6 = Sábado
             const hours = now.getHours();
             const minutes = now.getMinutes();
-            const currentTime = hours * 60 + minutes; // minutos desde medianoche
+            const currentTime = hours * 60 + minutes;
 
             const indicator = document.getElementById('status-indicator');
             const statusText = document.getElementById('status-text');
             const lang = CONFIG.currentLang;
 
-            // Horarios: Lunes(1) a Viernes(5) de 09:00 a 20:00
-            // Sábado(6) y Domingo(0) cerrado
             let isOpen = false;
 
             if (day >= 1 && day <= 5) {
-                // 09:00 = 540 min, 20:00 = 1200 min
                 if (currentTime >= 540 && currentTime <= 1200) {
                     isOpen = true;
                 }
@@ -1214,14 +1192,12 @@
                 let i = 0;
                 element.textContent = '';
                 
-                // Crear cursor
                 const cursor = document.createElement('span');
                 cursor.className = 'typewriter-cursor';
                 element.appendChild(cursor);
 
                 function type() {
                     if (i < text.length) {
-                        // Insertar texto antes del cursor
                         const textNode = document.createTextNode(text.charAt(i));
                         element.insertBefore(textNode, cursor);
                         i++;
@@ -1246,19 +1222,19 @@
 
             if (!text) return;
 
-            // Ejecutar efecto máquina de escribir
+            // 1. Ejecutar efecto máquina de escribir
             await typeWriterEffect(heroTitle, text, 65);
 
-            // Esperar 3 segundos con el cursor parpadeando
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            // 2. Esperar 4 segundos con el cursor parpadeando
+            await new Promise(resolve => setTimeout(resolve, 4000));
 
-            // Fade out del contenido de texto
+            // 3. Fade out del contenido de texto
             heroTextWrapper.classList.add('fade-out');
 
-            // Revelar la imagen de fondo de la tarjeta
+            // 4. DESAPARECER TODA LA TARJETA para ver solo el fondo de la página
             setTimeout(() => {
-                heroCard.classList.add('revealed');
-            }, 400);
+                heroCard.classList.add('card-hidden');
+            }, 600);
         }
 
         function toggleLanguage() {
@@ -1287,7 +1263,6 @@
             
             document.getElementById('lang-btn-text').textContent = t.toggle_btn;
 
-            // Actualizar indicador de estado con el nuevo idioma
             updateStatusIndicator();
         }
 
@@ -1410,9 +1385,7 @@
             initScrollEffects();
             initForm();
             updateStatusIndicator();
-            // Actualizar el estado cada minuto
             setInterval(updateStatusIndicator, 60000);
-            // Iniciar efecto máquina de escribir
             initHeroTypewriter();
         });
     </script>

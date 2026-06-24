@@ -22,6 +22,8 @@
             --dark-gray: #777777;
             --overlay: rgba(0, 0, 0, 0.75); 
             --transition: 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+            --green: #25D366;
+            --red: #e74c3c;
         }
 
         html {
@@ -340,6 +342,62 @@
             margin-left: 2px;
         }
 
+        /* ========== STATUS INDICATOR (ABIERTO/CERRADO) ========== */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all var(--transition);
+        }
+
+        .status-indicator.open {
+            color: var(--green);
+            border-color: rgba(37, 211, 102, 0.3);
+            background: rgba(37, 211, 102, 0.08);
+        }
+
+        .status-indicator.closed {
+            color: var(--red);
+            border-color: rgba(231, 76, 60, 0.3);
+            background: rgba(231, 76, 60, 0.08);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .status-indicator.open .status-dot {
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+            animation: pulseGreen 2s ease-in-out infinite;
+        }
+
+        .status-indicator.closed .status-dot {
+            background: var(--red);
+            box-shadow: 0 0 8px var(--red);
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(37, 211, 102, 0);
+            }
+        }
+
         /* ========== HERO ========== */
         .hero {
             min-height: 90vh;
@@ -361,6 +419,35 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
             max-width: 850px;
             border-top: 6px solid var(--orange);
+            position: relative;
+            overflow: hidden;
+            /* Imagen de fondo que se revelará */
+            background-image: url('FOTOTARJENTA.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-color 1.5s ease;
+        }
+
+        /* Overlay blanco que se desvanece para revelar la imagen */
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1;
+            transition: opacity 1.5s ease;
+            border-radius: 12px;
+        }
+
+        .hero-content.revealed::before {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .hero-content > * {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
@@ -371,6 +458,33 @@
             letter-spacing: -2px;
             text-transform: uppercase;
             color: var(--black);
+            min-height: 1.2em;
+        }
+
+        /* Efecto cursor máquina de escribir */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: var(--orange);
+            margin-left: 4px;
+            vertical-align: text-bottom;
+            animation: blink 0.7s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Fade out para el contenido del hero */
+        .hero-text-wrapper {
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .hero-text-wrapper.fade-out {
+            opacity: 0;
+            transform: translateY(-20px);
         }
 
         .hero p {
@@ -737,6 +851,10 @@
             .fab::after {
                 display: none; 
             }
+            .status-indicator {
+                font-size: 11px;
+                padding: 5px 10px;
+            }
         }
 
         .scroll-reveal {
@@ -764,6 +882,11 @@
                     <li><a href="#por-que-elegirnos" data-es="Por Qué Elegirnos" data-en="Why Choose Us">Por Qué Elegirnos</a></li>
                     <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
                 </ul>
+                <!-- INDICADOR ABIERTO/CERRADO -->
+                <div class="status-indicator" id="status-indicator">
+                    <span class="status-dot"></span>
+                    <span id="status-text" data-es="Abierto" data-en="Open">Abierto</span>
+                </div>
                 <button class="lang-switch-btn" id="lang-toggle" onclick="toggleLanguage()" aria-label="Cambiar Idioma / Switch Language">
                     <span id="lang-btn-text">EN</span>
                 </button>
@@ -771,10 +894,12 @@
         </nav>
 
         <section class="hero">
-            <div class="hero-content">
-                <h1 data-es="Detroit Motor City. Diagnóstico de Precisión" data-en="Detroit Motor City. Precision Diagnosis">Detroit Motor City. Diagnóstico de Precisión</h1>
-                <p data-es="Tecnología avanzada que tu auto merece. Transparencia total en cada análisis." data-en="Advanced technology your car deserves. Total transparency in every analysis.">Tecnología avanzada que tu auto merece. Transparencia total en cada análisis.</p>
-                <button class="button" onclick="scrollToSection('#contacto')" data-es="Diagnosticar Ahora" data-en="Diagnose Now">Diagnosticar Ahora</button>
+            <div class="hero-content" id="hero-card">
+                <div class="hero-text-wrapper" id="hero-text-wrapper">
+                    <h1 id="hero-title" data-es="Detroit Motor City. Diagnóstico de Precisión" data-en="Detroit Motor City. Precision Diagnosis"></h1>
+                    <p data-es="Tecnología avanzada que tu auto merece. Transparencia total en cada análisis." data-en="Advanced technology your car deserves. Total transparency in every analysis.">Tecnología avanzada que tu auto merece. Transparencia total en cada análisis.</p>
+                    <button class="button" onclick="scrollToSection('#contacto')" data-es="Diagnosticar Ahora" data-en="Diagnose Now">Diagnosticar Ahora</button>
+                </div>
             </div>
         </section>
 
@@ -1032,7 +1157,9 @@
                 placeholder_nombre: "Full name",
                 placeholder_email: "name@example.com",
                 toast_success: "¡Pre-Diagnosis details prepared! Redirecting to WhatsApp...",
-                toggle_btn: "ES"
+                toggle_btn: "ES",
+                status_open: "Open",
+                status_closed: "Closed"
             },
             es: {
                 placeholder_marca: "Ej: Toyota Corolla 2020",
@@ -1040,9 +1167,99 @@
                 placeholder_nombre: "Nombre completo",
                 placeholder_email: "ejemplo@correo.com",
                 toast_success: "¡Datos de pre-diagnóstico listos! Redirigiendo a WhatsApp...",
-                toggle_btn: "EN"
+                toggle_btn: "EN",
+                status_open: "Abierto",
+                status_closed: "Cerrado"
             }
         };
+
+        /* ========== STATUS INDICATOR (ABIERTO/CERRADO) ========== */
+        function updateStatusIndicator() {
+            const now = new Date();
+            // Usamos la hora local del usuario (Argentina - La Falda, Córdoba)
+            const day = now.getDay(); // 0 = Domingo, 1 = Lunes ... 6 = Sábado
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const currentTime = hours * 60 + minutes; // minutos desde medianoche
+
+            const indicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            const lang = CONFIG.currentLang;
+
+            // Horarios: Lunes(1) a Viernes(5) de 09:00 a 20:00
+            // Sábado(6) y Domingo(0) cerrado
+            let isOpen = false;
+
+            if (day >= 1 && day <= 5) {
+                // 09:00 = 540 min, 20:00 = 1200 min
+                if (currentTime >= 540 && currentTime <= 1200) {
+                    isOpen = true;
+                }
+            }
+
+            if (isOpen) {
+                indicator.classList.remove('closed');
+                indicator.classList.add('open');
+                statusText.textContent = TRANSLATIONS[lang].status_open;
+            } else {
+                indicator.classList.remove('open');
+                indicator.classList.add('closed');
+                statusText.textContent = TRANSLATIONS[lang].status_closed;
+            }
+        }
+
+        /* ========== TYPEWRITER EFFECT ========== */
+        function typeWriterEffect(element, text, speed = 70) {
+            return new Promise((resolve) => {
+                let i = 0;
+                element.textContent = '';
+                
+                // Crear cursor
+                const cursor = document.createElement('span');
+                cursor.className = 'typewriter-cursor';
+                element.appendChild(cursor);
+
+                function type() {
+                    if (i < text.length) {
+                        // Insertar texto antes del cursor
+                        const textNode = document.createTextNode(text.charAt(i));
+                        element.insertBefore(textNode, cursor);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        resolve();
+                    }
+                }
+                type();
+            });
+        }
+
+        async function initHeroTypewriter() {
+            const heroTitle = document.getElementById('hero-title');
+            const heroCard = document.getElementById('hero-card');
+            const heroTextWrapper = document.getElementById('hero-text-wrapper');
+            
+            if (!heroTitle || !heroCard) return;
+
+            const lang = CONFIG.currentLang;
+            const text = heroTitle.getAttribute(`data-${lang}`);
+
+            if (!text) return;
+
+            // Ejecutar efecto máquina de escribir
+            await typeWriterEffect(heroTitle, text, 65);
+
+            // Esperar 3 segundos con el cursor parpadeando
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            // Fade out del contenido de texto
+            heroTextWrapper.classList.add('fade-out');
+
+            // Revelar la imagen de fondo de la tarjeta
+            setTimeout(() => {
+                heroCard.classList.add('revealed');
+            }, 400);
+        }
 
         function toggleLanguage() {
             CONFIG.currentLang = CONFIG.currentLang === 'es' ? 'en' : 'es';
@@ -1069,6 +1286,9 @@
             document.getElementById('email').placeholder = t.placeholder_email;
             
             document.getElementById('lang-btn-text').textContent = t.toggle_btn;
+
+            // Actualizar indicador de estado con el nuevo idioma
+            updateStatusIndicator();
         }
 
         function initScrollEffects() {
@@ -1189,6 +1409,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             initScrollEffects();
             initForm();
+            updateStatusIndicator();
+            // Actualizar el estado cada minuto
+            setInterval(updateStatusIndicator, 60000);
+            // Iniciar efecto máquina de escribir
+            initHeroTypewriter();
         });
     </script>
 </body>
